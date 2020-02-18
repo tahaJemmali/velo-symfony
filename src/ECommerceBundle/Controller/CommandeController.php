@@ -107,7 +107,7 @@ class CommandeController extends Controller
         return $this->redirectToRoute('List_Commande');
     }
 
-    public function modify_commandeAction($id_commande,Request $request)
+    public function modify_commandeAction($id_commande,$clientid,Request $request)
     {
         $commande = $this->getDoctrine()->getRepository(Commande::class)->find($id_commande);
         $form = $this->createForm(CommandeType::class,$commande);
@@ -124,7 +124,9 @@ class CommandeController extends Controller
         //var_dump($id);
         //die();
         return $this->render('@ECommerce/Default/Modify_commande.html.twig',array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'id_commande'=>$id_commande,
+            'id_client'=>$clientid
         ));
 
     }

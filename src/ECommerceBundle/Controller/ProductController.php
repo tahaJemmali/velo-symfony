@@ -58,7 +58,26 @@ class ProductController extends Controller
         $Products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
 
-        return $this->render('@ECommerce/Default/list.html.twig',array('Products'=>$Products,'Images'=>$images));
+        //apigooglestat
+        $connect = mysqli_connect('localhost','root','','velo');
+        $query = "SELECT name,stock as number FROM product GROUP BY id ORDER by stock desc";
+        $result = mysqli_query($connect, $query);
+        $output='';
+        while($row = mysqli_fetch_array($result))
+        {
+            if($row["number"] > 0)
+                $output.= "['".$row["name"]."', ".$row["number"]."],";
+            else
+                $output.= "['".$row["name"]."', 0],";
+        }
+        //apigooglestat
+
+        return $this->render('@ECommerce/Default/list.html.twig',array(
+            'Products'=>$Products,
+            'Images'=>$images,
+            'results'=>json_encode($output),
+            'output'=>$output
+        ));
     }
 
     public function Delete_ProductAction($id)
@@ -109,17 +128,23 @@ class ProductController extends Controller
             return $this->render('@ECommerce/Default/Front_list_products.html.twig', array('category' => $category, 'Products' => $products, 'Images' => $images));
         }
         else
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('homepage'); // all products
     }
 
-    public function Single_Product_FrontAction($refrence)
+    public function Single_Product_FrontAction($refrence,Request $request)
     {
+        //$oldroute=$request->attributes->get('_route');
+        //die();
         $products = $this->getDoctrine()->getRepository(Product::class)->findByRefrence($refrence);
-        $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
+        if ($products!=null){
+            $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
+            return $this->render('@ECommerce/Default/Single_list_products.html.twig',array('Product'=>$products,'Images'=>$images));
+        }
 
-        return $this->render('@ECommerce/Default/Single_list_products.html.twig',array('Product'=>$products,'Images'=>$images));
-
+            return $this->redirectToRoute('homepage'); // previous page
     }
+
+
 
 
 

@@ -6,6 +6,31 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("back/fahd/AfficherProduitCss.css") }}">
 <script src="{{ asset('jquery.js') }}"></script>
 
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart()
+    {
+        var data = google.visualization.arrayToDataTable([
+            ['name', 'number'],
+            //console.log($('#idpiee').val())
+            {{ output|raw }}
+        ]);
+        var options = {
+            title: '',
+            //is3D:true,
+            pieHole: 0.4
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+</script>
+
 <div class="content" >
     <!-- EKTOB HOUNI -->
     <div name="product_catalog_list" id="product_catalog_list" method="post" > <!-- action="supprimerProduit.php" -->
@@ -285,19 +310,6 @@
         </div>
         <!-- !CADRE -->
 
-        <!-- CADRE -->
-        <div class="card">
-            <h7 class="card-header" style="font-weight : bolder">Produits les plus vendus</h7> <!-- font weight-->
-
-            <div class="card-body"  > <!-- class="table-responsive" -->
-                <div style="width:100%;">
-                    <h2 align="center">  </h2>
-                    <div align="center" id="piechart2" style="width: 100%; height: 600px"></div>
-                </div>
-            </div>
-        </div>
-        <!-- !CADRE -->
-
     </form>
 </div>
 
@@ -425,6 +437,9 @@
                                 var check_int = int_verif(id);
                                 if(id===''){check_int='true';}
 
+                                var check_name = CheckInfoLettre(nom);
+                                if(nom===''){check_name='true';}
+
                                 var check_qmin = int_verif(quantite_min);
                                 if(quantite_min===''){check_qmin='true';}
 
@@ -440,7 +455,7 @@
                                 //alert(check_int);
                                 if( ( id!=='' || nom!=='' || reference!=='' || categorie!=='' || test1===1 || test2===1 ) && ( (test1===1 && test2===1) || (test1===2 && test2===2) || (test1===2 && test2===1) ||(test1===1 && test2===2) )  )
                                 {//alert('a'+montant_min+'b'+montant_max);
-                                    if(check_int && check_qmin && check_qmax && check_mmin && check_mmax) {
+                                    if(check_int && check_name && check_qmin && check_qmax && check_mmin && check_mmax) {
                                         //alert('DSML');
                                         $.ajax({
                                             cache:false,
@@ -504,9 +519,20 @@
                                 return true;
                             }
                         }
+                        function CheckInfoLettre(s1)
+                        {   //var data=document.getElementById(s1) ;
+
+                            var regex = /^[a-zA-Z ]{3,30}$/;
+                            if(!regex.test(s1) || s1== "")
+                            {//alert(s1);
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
                     </script>
-
-
 {% endblock %}
 
 

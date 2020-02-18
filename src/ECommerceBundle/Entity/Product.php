@@ -1,6 +1,7 @@
 <?php
 
 namespace ECommerceBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,6 +29,7 @@ class Product
      *
      * @ORM\Column(name="refrence", type="string", length=255, unique=true)
      */
+
     private $refrence;
 
     /**
@@ -68,7 +70,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="Description", type="string", length=255)
+     * @ORM\Column(name="Description", type="string", length=999)
      */
     private $description;
 

@@ -20,7 +20,7 @@
 
             <!--<div class="col-md-12">--> <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <!--<div class="table-responsive">--> <div class="card">
-                    <h7 class="card-header" style="font-weight : bolder">Commande n° </h7>
+                    <h7 class="card-header" style="font-weight : bolder">Commande n° {{ id_commande }}</h7>
                     <div id="form11">
                         <div class="card-body"  id="employee_table"> <!-- class="table-responsive" -->
 
@@ -74,6 +74,7 @@
                                     <input type="submit" id="Done" class="btn btn-space btn-primary" name="Done" value="Done">
                                     {# {{ form_widget(form.AddProduct ,{'attr' :{'id':'MainbtnSubmit','class':'btn btn-space btn-primary' } }) }}#}
                                     <a class="btn btn-space btn-secondary" href="{{ path('List_Commande') }}">Cancel</a>
+                                    <a class="btn btn-primary" target="_blank" href="{{ asset('FacturePdf/'~id_commande~'_'~id_client~'.pdf') }}">Voir Facture</a>
                                 </div>
                             </div>
                             <input type="hidden" id="idp" value="">

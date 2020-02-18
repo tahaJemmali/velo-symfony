@@ -94,10 +94,7 @@
                                 </th>
 
                                 <th scope="col" class="text-center">
-                                    <div class="ps-sortable-column" data-sort-col-name="active">
-                                        <!--<span role="columnheader">État</span>
-                                        <span role="button" class="ps-sort" aria-label="Tri"></span>-->
-                                    </div>
+                                    <span role="columnheader">Facture</span>
                                 </th>
 
                                 <th scope="col" class="text-right" style="width: 3rem; padding-right: 2rem">
@@ -246,12 +243,26 @@
                                     {% endfor %}
                                 </td>
                                 <td class="text-center">
+                                    {% for client in clients %}
+                                        {% if client.id == cmds.user_id %}
+                                            {#<a href="{{ path('modify_commande',{'id_commande':cmds.commande_id,'clientid':client.id}) }}"  title="" class="btn tooltip-link product-edit">#}
+                                            <a  target="_blank" href="{{ asset('FacturePdf/'~cmds.commande_id~'_'~client.id~'.pdf') }}" title="" class="btn tooltip-link product-edit">
+                                                <i class="material-icons">picture_as_pdf</i>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
                                 </td>
 
                                 <td class="text-right">
                                     <div class="btn-group-action">
                                         <div class="btn-group">
-                                            <a href="{{ path('modify_commande',{'id_commande':cmds.commande_id}) }}"  title="" class="btn tooltip-link product-edit">
+
+                                            {% for client in clients %}
+                                                {% if client.id == cmds.user_id %}
+                                            <a href="{{ path('modify_commande',{'id_commande':cmds.commande_id,'clientid':client.id}) }}"  title="" class="btn tooltip-link product-edit">
+                                            {% endif %}
+                                            {% endfor %}
+
                                                 <i class="material-icons">mode_edit</i>
                                             </a>
                                             <a  href="{{ path('delete_commande',{'id_commande':cmds.commande_id}) }}" onclick="return confirm('Voulez vous supprimer la commande ?');" title="" class="btn tooltip-link product-edit">

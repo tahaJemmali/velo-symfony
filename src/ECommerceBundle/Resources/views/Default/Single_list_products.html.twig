@@ -28,8 +28,8 @@
 					{% for image in Images %}
 						{% if image.product.id  == Prod.id %}
 							<div class="imagesHolder">
-								<img src="{{ asset(''~image.image) }}" style="height: 390px;width: 390px" >
-								<input type="text" value="imagesHolder">
+								<img src="{{ asset(''~image.image) }}" style="height: 435px;width: 530px" >
+								{#<input type="text" value="imagesHolder">#}
 								<p class="captionText"></p>
 							</div>
 						{% endif %}
@@ -62,7 +62,9 @@
 							<input style="width:30%;" class="form-control" name="quantite_produit" type="number" value="1" min="1">
 							<div style="top:30px;" >
 								<h1>Description :</h1>
-								<p>{{ Prod.description }}</p>
+
+									{{ Prod.description }}
+
 								{#<a href="{{ path('panier') }}">omg<a/>#}
 
 							</div>
@@ -108,8 +110,8 @@
 	<style>
 		.galleryContainer{
 			width: 100%;
-			height: 440px;
-			max-width: 400px;
+			height: 500px;
+			max-width: 550px;
 			user-select: none;
 			box-shadow: 0px 0px 3px 1px #00000078;
 			padding: 10px;

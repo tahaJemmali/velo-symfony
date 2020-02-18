@@ -25,6 +25,13 @@ class ProductType extends AbstractType
                 'multiple'=>false,
                 'expanded' => false,
                 'choices'=>array(
+                    /*
+                'cat'=>function($key, $val, $index) {
+                    $disabled = true;
+                    //$val='azeaze';
+                    // set disabled to true based on the value, key or index of the choice...
+                    return $disabled ? ['disabled' => 'disabled'] : [];
+                },*/
                     'Velo' => 'Velo',
                     'Accessoire' => 'Accessoire',
                     'Piece de rechange' => 'Piece de rechange',

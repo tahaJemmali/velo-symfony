@@ -111,8 +111,22 @@ $var = 'facture';
 
     }
 
-    public function Recherche_backAction(Request $request)
+    public function Recherche_backAction()
     {
+        //apigooglestat
+        $connect = mysqli_connect('localhost','root','','velo');
+        $query = "SELECT name,stock as number FROM product GROUP BY id ORDER by stock desc";
+        $result = mysqli_query($connect, $query);
+        $output='';
+        while($row = mysqli_fetch_array($result))
+        {
+            if($row["number"] > 0)
+                $output.= "['".$row["name"]."', ".$row["number"]."],";
+            else
+                $output.= "['".$row["name"]."', 0],";
+        }
+        //apigooglestat
+
         $where ="";
         if (!empty($_POST['id']) || !empty($_POST['reference']) || !empty($_POST['categorie']) || !empty($_POST['nom']) || !empty($_POST['mmin']) || !empty($_POST['mmax']) || !empty($_POST['qmin']) || !empty($_POST['qmax']) )
         {
@@ -178,12 +192,27 @@ $var = 'facture';
             'qmin'=>$_POST['qmin'],
             'qmax'=>$_POST['qmax'],
             'Products'=>$products,
-            'Images'=>$images
+            'Images'=>$images,
+            'output'=>$output
         ));
     }
 
     public function Sort_backAction()
     {
+        //apigooglestat
+        $connect = mysqli_connect('localhost','root','','velo');
+        $query = "SELECT name,stock as number FROM product GROUP BY id ORDER by stock desc";
+        $result = mysqli_query($connect, $query);
+        $output='';
+        while($row = mysqli_fetch_array($result))
+        {
+            if($row["number"] > 0)
+                $output.= "['".$row["name"]."', ".$row["number"]."],";
+            else
+                $output.= "['".$row["name"]."', 0],";
+        }
+        //apigooglestat
+
         $sort_var = $_POST["column_name"];
         if ($sort_var == 'reference')
             $sort_var= 'refrence';
@@ -222,7 +251,8 @@ $var = 'facture';
             'Products'=>$products,
             'Images'=>$images,
             'var'=>$var,
-            'order'=>$order
+            'order'=>$order,
+            'output'=>$output
         ));
     }
 

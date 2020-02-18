@@ -76,7 +76,7 @@ delete_commande:
     defaults: { _controller: ECommerceBundle:Commande:delete_commande }
 
 modify_commande:
-    path:     /admin/modify_commande/{id_commande}
+    path:     /admin/modify_commande/{id_commande},{clientid}
     defaults: { _controller: ECommerceBundle:Commande:modify_commande }
 
 

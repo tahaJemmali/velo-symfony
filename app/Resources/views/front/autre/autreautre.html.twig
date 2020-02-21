@@ -35,19 +35,20 @@
 <div class="menu">
 
     <!-- Search -->
+
     <div class="menu_search">
         <form action="#" id="menu_search_form" class="menu_search_form">
             <input type="text" class="search_input" placeholder="Search Item" required="required">
             {#<button class="menu_search_button"><img src="images/search.png" alt=""></button>#}
             <button class="menu_search_button"><img src="{{ asset('autre/images/search.png') }}" alt=""></button>
-
         </form>
     </div>
+
     <!-- Navigation -->
     <div class="menu_nav">
         <ul>
-            <li><a href="index.html">Acceuil</a></li>
-            <li><a href="category.html">Categorie</a></li>
+            <li><a href="{{ path('homepage') }}">Acceuil</a></li>
+            <li><a href="{{ path('homepage') }}">Categorie</a></li>
             <li><a href="#">Guide d'utilisation</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
@@ -90,7 +91,7 @@
             <div class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></div>
             <nav class="main_nav">
                 <ul class="d-flex flex-row align-items-start justify-content-start">
-                    <li><a href="index.html">Acceuil</a></li>
+                    <li><a href="{{ path('homepage') }}">Acceuil</a></li>
                     <li><a href="category.html">Categorie</a></li>
                     <li><a href="#">Guide d'utilisation</a></li>
                     <li><a href="#">Contact</a></li>
@@ -98,17 +99,19 @@
             </nav>
             <div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
                 <!-- Search -->
+                {% block searsh %}
                 <div class="header_search">
                     <form action="#" id="header_search_form">
                         <input type="text" class="search_input" placeholder="Recherche..." required="required">
                         <button class="header_search_button"><img src="images/search.png" alt=""></button>
                     </form>
                 </div>
+                {% endblock %}
                 <!-- User -->
-                <div class="user"><a href="Login.html"><div><img src="{{ asset('autre/images/user.svg') }}" alt="https://www.flaticon.com/authors/freepik"></div></a></div>
+                <div class="user"><a href="{{ path('fos_user_profile_show') }}"><div><img src="{{ asset('autre/images/user.svg') }}" alt="https://www.flaticon.com/authors/freepik"></div></a></div>
                 {#<div class="user"><a href="Login.html"><div><img src="images/user.svg" alt="https://www.flaticon.com/authors/freepik"></div></a></div>#}
                 <!-- Cart -->
-                <div class="cart"><a href="cart.html"><div><img class="svg" src="{{ asset('autre/images/cart.svg') }}" alt="https://www.flaticon.com/authors/freepik"><div>1</div></div></a></div>
+                <div class="cart"><a href="{{ path('Cart') }}"><div><img class="svg" src="{{ asset('autre/images/cart.svg') }}" alt="https://www.flaticon.com/authors/freepik"><div>{% block cartn %}1{% endblock %}</div></div></a></div>
                 {#<div class="cart"><a href="cart.html"><div><img class="svg" src="images/cart.svg" alt="https://www.flaticon.com/authors/freepik"><div>1</div></div></a></div>#}
                 <!-- Phone -->
                 <!-- <div class="header_phone d-flex flex-row align-items-center justify-content-start">

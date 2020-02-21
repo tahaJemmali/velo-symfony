@@ -54,9 +54,9 @@ delete_article:
     path:     /delete_article/{id_article}
     defaults: { _controller: ECommerceBundle:Cart:delete_article }
 
-return_to_products:
-    path:     /return_to_products
-    defaults: { _controller: ECommerceBundle:Cart:return_to_products }
+Checkout:
+    path:     /Checkout
+    defaults: { _controller: ECommerceBundle:Cart:Checkout }
 
 
 empty_cart:
@@ -100,6 +100,10 @@ Sort_back:
 Sort_commande:
     path:     /Sort_commande
     defaults: { _controller: ECommerceBundle:Default:Sort_commande }
+
+Searsh_Product_Front:
+    path:     /Searsh_Product_Front
+    defaults: { _controller: ECommerceBundle:Default:Searsh_Product_Front }
 
 
 

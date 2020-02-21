@@ -3,6 +3,7 @@
 namespace ECommerceBundle\Controller;
 
 use ECommerceBundle\ECommerceBundle;
+use ECommerceBundle\Entity\Cart;
 use ECommerceBundle\Entity\Commande;
 use ECommerceBundle\Entity\Image;
 use ECommerceBundle\Entity\Product;
@@ -15,23 +16,28 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ECommerceBundle:Default:index.html.twig');
+        return $this->render('@ECommerce/Default/empty.html.twig');
     }
 
-    public function pdfAction()
+    public function testmailAction() //no
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('VeloEcommerceSite@gmail.com')
+            ->setTo('fahd.larayedh@gmail.com')
+            ->setBody('You should see me from the profiler!')
+        ;
+
+        $this->get('mailer')->send($message);
+
+        return $this->render('@ECommerce/Default/empty.html.twig');
+    }
+
+    public function pdfAction() //test
     {
         $snappy = $this->get('knp_snappy.pdf');
         $snappy->setOption('no-outline', true);
         $snappy->setOption('page-size','A4');
         $snappy->setOption('encoding', 'UTF-8');
-        //$filename = 'myFirstSnappyPDF';
-
-        /*$html =$this->renderView('@ECommerce/Cart/Facture.html.twig',array(
-            'fl'=>$filename,
-            'rootDir' => $this->get('kernel')->getRootDir().'/..'
-
-        ));*/
-        //($html, $output, array $options = array(), $overwrite = false)
 
         $var = 're';
         $this->container->get('knp_snappy.pdf')->generateFromHtml(
@@ -50,64 +56,6 @@ class DefaultController extends Controller
             ));
 
         return $this->redirectToRoute('homepage');
-        /*
-$var = 'facture';
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html,array(
-                'lowquality' => false,
-                'encoding' => 'utf-8',
-                'images' => true,
-            )),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'inline; filename="'.$var.'.pdf"'
-            )
-        );*/
-
-      /*  return new Response(
-            $this->container->get('knp_snappy.pdf')->generateFromHtml(
-            $this->container->get('templating')->render(
-                'ECommerceBundle:Cart:Facture.html.twig',
-                array(
-                    'var' => $var,
-                )
-            ),
-            'FacturePdf/f1.pdf',
-
-            array(
-                'lowquality' => false,
-                'encoding' => 'utf-8',
-                'images' => true,
-                )
-        ));*/
-
-       /* return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array(
-                'orientation' => 'portrait',
-                'enable-javascript' => true,
-                'javascript-delay' => 1000,
-                'no-stop-slow-scripts' => true,
-                'no-background' => false,
-                'lowquality' => false,
-                'encoding' => 'utf-8',
-                'images' => true,
-                'cookie' => array(),
-                'dpi' => 300,
-                'image-dpi' => 300,
-                'enable-external-links' => true,
-                'enable-internal-links' => true
-            )),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="report.pdf"'
-            )
-        );*/
-
-        //$filename = 'myFirstSnappyPDF';
-        //$url = 'http://ourcodeworld.com';
-
 
     }
 
@@ -296,6 +244,35 @@ ORDER BY ".$sort_var." ".$_POST["order"]." ";
                 'clients'=>$clients,
                 'ordre'=>$order
             ));
+
+    }
+
+    public function Searsh_Product_FrontAction(Request $request)
+    {
+        $input = $request->get('input_searsh');
+        //var_dump($input);die();
+        $category = $request->get('categorys');
+
+        //cartn
+        $cartn = $this->getDoctrine()->getRepository(Cart::class)->Cart_user_id($this->getUser()->getId());
+
+        if ($category == 'Velo' || $category == 'Piece de rechange' || $category == 'Accessoire' ) {
+            $products = $this->getDoctrine()->getRepository(Product::class)->findByCategoryAndInput($category,$input);
+            $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
+
+            return $this->render('@ECommerce/Default/Front_list_products.html.twig',
+                array('category' => $category, 'Products' => $products, 'Images' => $images,'cartn'=>$cartn));
+        }
+        else if ($category == 'All')
+        {   $products = $this->getDoctrine()->getRepository(Product::class)->findOnlyWithInput($input);
+            $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
+
+            return $this->render('@ECommerce/Default/Front_list_products.html.twig',
+                array('category' => $category, 'Products' => $products, 'Images' => $images,'cartn'=>$cartn));
+        }
+        else
+            return $this->redirectToRoute('homepage'); // all products
+
 
     }
 }

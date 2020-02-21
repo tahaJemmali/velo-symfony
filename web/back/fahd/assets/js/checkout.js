@@ -248,7 +248,7 @@ function CheckInfoLettreChiffre(e)
 }
 
 function CheckInfoChiffre(e)
-{
+{//alert('false');
 	var regex = /^[0-9]{4,5}$/;
    	if(!regex.test(e.value))
    	{

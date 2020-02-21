@@ -15,32 +15,44 @@
     <header>
         {#<h1>Facture</h1>#}
     <address contenteditable>
-        <p>Jonathan Neal</p>
-        <p>101 E. Chapman Ave<br>Orange, CA 92866</p>
-        <p>(800) 555-1234</p>
+        <p>Z.I. Chotrana II B.P. 160</p>
+        <p>Pôle Technologique El Ghazela - Ariana</p>
+        <p>2083</p>
+
+        <p>VeloEcommerce@gmail.com</p>
+        <p>(+216) 70 822 506</p>
+        <p>(+216) 71 822 506</p>
     </address>
     {#<span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png"><input type="file" accept="image/*"></span>#}
 </header>
-
-
-
+Envoye à
 <article>
     <h1>Recipient</h1>
-    <address contenteditable>
-        <p>Some Company<br>c/o Some Guy</p>
+    <address contenteditable><br>
+        <p style="font-size:90%;">{{ checkout_email }}
+            <br>{{ checkout_phone }}<br>
+        </p>
+        <p style="font-size:80%;">{{ checkout_country }}<br>
+        {{ checkout_address }}<br></p>
+        <p style="font-size:70%;">
+        {{ checkout_address_2 }}<br>
+        {{ checkout_zipcode }}<br>
+        </p>
+            <br>
     </address>
+
     <table class="meta">
         <tr>
-            <th><span contenteditable>Invoice #</span></th>
-            <td><span contenteditable>101138</span></td>
+            <th><span contenteditable>Commande n°</span></th>
+            <td><span contenteditable> TN-9584{{ id_commande }}4859</span></td>
         </tr>
         <tr>
             <th><span contenteditable>Date</span></th>
-            <td><span contenteditable>January 1, 2012</span></td>
+            <td><span contenteditable>{{ "now"|date("d/m/Y") }}</span></td>
         </tr>
         <tr>
-            <th><span contenteditable>Amount Due</span></th>
-            <td><span id="prefix" contenteditable>$</span><span>600.00</span></td>
+            <th><span contenteditable>Total</span></th>
+            <td><span id="prefix" contenteditable>{{ total_cmd*0.2+total_cmd }}</span><span></span> DT</td>
         </tr>
     </table>
      {#<img src="<?php echo 'data:image/jpg;base64,'.base64_encode(file_get_contents('./template/assets/frontend/images/pdf-header.jpg')); ?>" style="width:100%;">#}
@@ -51,11 +63,11 @@
     <table class="inventory">
         <thead>
         <tr>
-            <th><span contenteditable>Item refrence</span></th>
-            <th><span contenteditable>Item name</span></th>
-            <th><span contenteditable>Rate</span></th>
-            <th><span contenteditable>Quantity</span></th>
-            <th><span contenteditable>Price</span></th>
+            <th><span contenteditable>Reference produit</span></th>
+            <th><span contenteditable>Nom produit</span></th>
+            <th><span contenteditable>Prix unitaire</span></th>
+            <th><span contenteditable>Quantité</span></th>
+            <th><span contenteditable>Prix</span></th>
         </tr>
         </thead>
         <tbody>
@@ -63,9 +75,9 @@
         <tr>
             <td><a class="cut">-</a><span contenteditable>{{ art.product.refrence }}</span></td>
             <td><span contenteditable>{{ art.product.name }}</span></td>
-            <td><span data-prefix>$</span><span contenteditable>{{ art.product.price }}</span></td>
+            <td><span data-prefix></span><span contenteditable>{{ art.product.price }}</span> DT</td>
             <td><span contenteditable>{{ art.quantity }}</span></td>
-            <td><span data-prefix>$</span><span>{{ art.quantity * art.product.price }}</span></td>
+            <td><span data-prefix></span><span>{{ art.quantity * art.product.price }}</span> DT</td>
         </tr>
         {% endfor %}
         </tbody>
@@ -73,23 +85,23 @@
     {#<a class="add">+</a>#}
     <table class="balance">
         <tr>
+            <th><span contenteditable>Total HT</span></th>
+            <td><span data-prefix></span><span>{{ total_cmd }}</span> DT</td>
+        </tr>
+        <tr>
+            <th><span contenteditable>TVA 20.0%</span></th>
+            <td><span data-prefix></span><span contenteditable>{{ total_cmd*0.2 }}</span> DT</td>
+        </tr>
+        <tr>
             <th><span contenteditable>Total</span></th>
-            <td><span data-prefix>DT</span><span>{{ total_cmd }}</span></td>
-        </tr>
-        <tr>
-            <th><span contenteditable>Amount Paid</span></th>
-            <td><span data-prefix>$</span><span contenteditable>0.00</span></td>
-        </tr>
-        <tr>
-            <th><span contenteditable>Balance Due</span></th>
-            <td><span data-prefix>$</span><span>600.00</span></td>
+            <td><span data-prefix></span><span>{{ total_cmd*0.2+total_cmd }}</span> DT</td>
         </tr>
     </table>
 </article>
 <aside>
-    <h1><span contenteditable>Additional Notes</span></h1>
+    <h1><span contenteditable>Merci</span></h1>
     <div contenteditable>
-        <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
+        <p></p>
     </div>
 </aside>
 </body>

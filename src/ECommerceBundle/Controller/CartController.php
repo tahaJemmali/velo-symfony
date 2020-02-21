@@ -144,7 +144,7 @@ class CartController extends Controller
         }
     }
 
-    public function return_to_productsAction(\Symfony\Component\HttpFoundation\Request $request)
+    public function CheckoutAction(\Symfony\Component\HttpFoundation\Request $request)
     {
         $authChecker=$this->container->get('security.authorization_checker');
 
@@ -164,6 +164,8 @@ class CartController extends Controller
             $user = $this->getUser();
             $User_Id = $user->getId();
             $cart_ids = $this->getDoctrine()->getRepository(Cart::class)->Cart_user_id($User_Id);
+            if ($cart_ids==null)
+                return $this->redirectToRoute("Cart");
             $em = $this->getDoctrine()->getManager();
             $total_panier = $_POST['Total_Panierez'];
             //var_dump($cart_ids);
@@ -185,7 +187,7 @@ class CartController extends Controller
             $em->flush();
 
             if ($_POST['whichway']==0)
-            return $this->redirectToRoute("homepage");
+            return $this->redirectToRoute("List_Product_Front",array('category'=>'All')); // here
             else
                 return $this->render('@ECommerce/Cart/Checkout.html.twig',
                     array('total_panier'=>$total_panier,
@@ -193,6 +195,7 @@ class CartController extends Controller
                         'user_email'=> $user->getEmail(),
                         'user_adress'=> $user->getAddress(),
                         'user_phone'=> $user->getPhone(),
+                        'cart'=>$cart_ids //chkour cartn
                     )
                 );
 

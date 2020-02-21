@@ -1,5 +1,5 @@
 {% extends "front/autre/autreautre.html.twig" %}
-
+{% block cartn %} {{ cart|length }}  {% endblock %}
 {% block titre %} Espace Paiement  {% endblock %}
 
 {% block css %}
@@ -25,6 +25,15 @@
     <script src="{{ asset('jquery.js') }}"></script> {# SCRIPTTTTTTTTTTTT #}
 {% endblock %}
 
+{% block searsh %}
+    <div class="header_search">
+        <form action="#" id="header_search_form">
+            <input type="text" class="search_input" placeholder="Recherche..." required="required" disabled>
+            <button class="header_search_button"><img src="images/search.png" alt=""></button>
+        </form>
+    </div>
+{% endblock %}
+
 {% block body %}
     <div class="checkout">
         <div class="container">
@@ -35,74 +44,102 @@
                     <div class="billing">
                         <div class="checkout_title">DÉTAILS DE LA FACTURATION</div>
                         <div class="checkout_form_container">
-                            <form action="#" id="checkout_form" class="checkout_form" name="checkout">
+                            <form method="POST" action="{{ path('checkout_confirm') }}" id="chek_form">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <!-- Name -->
-                                        <input type="text" id="checkout_name" class="checkout_input" placeholder="Nom" value="{{ user_username }}" disabled="disabled" readonly="">
-                                    </div>
+                                        <input type="text" id="checkout_name" name="checkout_name" class="checkout_input" placeholder="Nom" value="{{ user_username }}" disabled="disabled" readonly="">
+                                    </div><br>
                                     {#
                                     <div class="col-lg-6">
                                         <!-- Last Name -->
                                         <input type="text" id="checkout_last_name" class="checkout_input" placeholder="Prénom" value="dddd" disabled="disabled" readonly="">
                                     </div>#}
                                 </div>
-                                <div>
+                                <div><br>
                                     <!-- Company -->
-                                    <input type="text" id="checkout_company" placeholder="Societe (option)" class="checkout_input">
-                                </div>
+                                    <input type="text" id="checkout_company" name="checkout_company" placeholder="Societe (option)" class="checkout_input">
+                                </div><br>
                                 <div>
                                     <!-- Country -->
-                                    <select name="checkout_country" id="checkout_country" class="dropdown_item_select checkout_input" disabled="">
-                                        <option value="country">Pays</option>
-                                        <option value="Tunisie" selected="">Tunisie</option>
-                                        <option value="Afghanistan">Afghanistan </option>
-                                        <option value="Afrique_Centrale">Afrique_Centrale </option>
+                                    <select name="checkout_country" id="checkout_country" class="dropdown_item_select checkout_input" >
+                                        <option value="country" disabled>Ville</option>
+                                        <option value="Ariana" selected="">Ariana</option>
+                                        <option value="Tunis">Tunis </option>
+                                        <option value="Nabeul">Nabeul </option>
                                     </select>
-                                </div>
+                                </div><br>
                                 <div>
                                     <!-- Address -->
-                                    <input type="text" id="checkout_address" class="checkout_input" placeholder="Adresse 1" value="{{ user_adress }}" disabled="disabled" readonly="">
-                                    <input type="text" id="checkout_address_2" class="checkout_input checkout_address_2" placeholder="Adresse 2" required="required" onblur="CheckInfoLettreChiffre(this)" onkeyup="CheckInfoLettreChiffre(this)">
+                                    {#<input type="text" id="checkout_address" class="checkout_input" placeholder="Adresse 1" value="{{ user_adress }}" disabled="disabled" readonly="">#}
+                                    <input type="text" id="checkout_address" name="checkout_address" class="checkout_input checkout_address" placeholder="Adresse" required="required" onblur="CheckInfoLettreChiffree(this)" onkeyup="CheckInfoLettreChiffree(this)">
+                                    <input type="text" id="checkout_address_2" name="checkout_address_2" class="checkout_input checkout_address_2" placeholder="Adresse 2 (option)"  onblur="CheckInfoLettreChiffree(this)" onkeyup="CheckInfoLettreChiffree(this)">
+
                                 </div>
-                                <div>
+                                <div><br>
                                     <!-- Zipcode -->
-                                    <input type="text" id="checkout_zipcode" class="checkout_input" placeholder="Code Postal" required="required" onblur="CheckInfoChiffre(this)" onkeyup="CheckInfoChiffre(this)">
-                                </div>
-                                <div>
+                                    <input type="text" id="checkout_zipcode" name="checkout_zipcode" class="checkout_input checkout_address_3" placeholder="Code Postal" required="required" onblur="CheckInfoChiffree(this)" onkeyup="CheckInfoChiffree(this)">
+                                </div><br>
+                                <script>
+                                    function CheckInfoChiffree(e)
+                                    {
+                                        var regex = /^[0-9]{4,5}$/;
+                                        if(!regex.test(e.value))
+                                        {
+                                            e.style.borderColor = "red" ;
+                                            $('#checks').val('false');
+                                            return false;
+                                        }
+                                        else
+                                        {
+                                            e.style.borderColor = "" ;
+                                            $('#checks').val('true');
+                                            return true;
+                                        }
+                                    }
+                                    function CheckInfoLettreChiffree(e)
+                                    {
+                                        var regex = /^[a-zA-Z0-9., -]{4,}$/ ;
+                                        if(!regex.test(e.value))
+                                        {
+                                            e.style.borderColor = "red" ;
+                                            if (e.id=='checkout_address_2')
+                                                e.style.borderColor = "orange" ;
+                                            $('#checks').val('false');
+                                            return false;
+                                        }
+                                        else
+                                        {
+                                            e.style.borderColor = "" ;
+                                            $('#checks').val('true');
+                                            return true;
+                                        }
+                                    }
+                                    function trigger() {
+                                        $('#checks').val('false');
+                                        $('#checkout_address').trigger('blur');
+                                        $('#checkout_zipcode').trigger('blur');
+                                        //$('#ECommerceBundle_product_name').trigger('blur');
+                                    }
+                                    </script>
+                                {#<div>
                                     <!-- City / Town -->
                                     <select name="checkout_city" id="checkout_city" class="dropdown_item_select checkout_input" require="required" onblur="CheckInfoSelectList(this,'city')">
                                         <option value="city">Ville</option>
                                     </select>
-                                </div>
+                                </div>#}
                                 <div>
                                     <!-- Phone no -->
                                     <input type="phone" id="checkout_phone" class="checkout_input" placeholder="Numéro de Télephone" value="{{ user_phone }}" disabled="disabled" readonly="">
-                                </div>
+                                </div><br>
                                 <div>
                                     <!-- Email -->
                                     <input type="email" id="checkout_email" class="checkout_input" placeholder="Email" value="{{ user_email }}" disabled="disabled" readonly="">
+                                    <input type="hidden" name="email"  value="{{ user_email }}" >
+                                    <input type="hidden" name="phone"  value="{{ user_phone }}" >
+
                                 </div>
-                                {#
-                                <div class="checkout_extra">
-                                    <ul>
-                                        <li class="billing_info d-flex flex-row align-items-center justify-content-start">
-                                            <label class="checkbox_container">
-                                                <input type="checkbox" id="cb_1" name="billing_checkbox" class="billing_checkbox">
-                                                <span class="checkbox_mark"></span>
-                                                <span class="checkbox_text">Conditions d'utilisation</span>
-                                            </label>
-                                        </li>
-                                        <li class="billing_info d-flex flex-row align-items-center justify-content-start">
-                                            <label class="checkbox_container">
-                                                <input type="checkbox" id="cb_3" name="billing_checkbox" class="billing_checkbox">
-                                                <span class="checkbox_mark"></span>
-                                                <span class="checkbox_text">S'inscrire à la Newsletter</span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>#}
-                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -111,7 +148,7 @@
                 <div class="col-lg-6 cart_col">
                     <div class="cart_total">
                         <div class="cart_extra_content cart_extra_total">
-                            <form method="POST" action="{{ path('checkout_confirm') }}" id="chek_form">
+                           {#<form method="POST" action="{{ path('checkout_confirm') }}" id="chek_form">#}
                                 <div class="checkout_title">Total Panier</div>
                                 <ul class="cart_extra_total_list">
                                     <li class="d-flex flex-row align-items-center justify-content-start">
@@ -172,6 +209,8 @@
                                 <input type="hidden" value="0" name="test_ck">#}
                                 <br>
                                 <button type="button" id="tp_submit" class="btn btn-warning" style="width:100%;" form="checkout" value="ConfirmerAchat" >Confirmer l'achat</button>
+                                <input type="hidden" id="checks" class="checkout_input checkout_address_99" value="false" >
+
                             </form>
                         </div>
                     </div>
@@ -182,9 +221,12 @@
     </div>
     <script>
         $(document).ready(function()
-        {$("#tp_submit").click(function()
-        {
+        {$("#tp_submit").click(function(e)
+        {  trigger();
+            if ($('#checks').val()=='true')
             $("#chek_form").submit();
+            else
+                e.preventDefault();
         });
         });
     </script>

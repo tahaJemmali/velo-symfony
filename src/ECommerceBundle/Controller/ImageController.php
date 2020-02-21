@@ -56,7 +56,7 @@ class ImageController extends Controller
         return $this->render('@ECommerce/Default/next.html.twig',array('name'=>$name,'refrence'=>$refrence,'images'=>$array));
         //else
           //  return $this->redirectToRoute('List_Product');
-
+       // return $this->render('@ECommerce/Default/empty.html.twig',array('amine'=>'Dridi'));
 
     }
     public function modifier_nextAction(Request $request)

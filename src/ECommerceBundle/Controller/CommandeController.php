@@ -23,6 +23,14 @@ class CommandeController extends Controller
         //var_dump($request);
         //die();
 
+        // if cart is null redirect to Cart
+        $user = $this->getUser();
+        $rm = $this->getDoctrine()->getManager();
+        $articles = $rm->getRepository(Cart::class)->Cart_user_id($user->getId());
+        if ($articles == null)
+            return $this->redirectToRoute('Cart');
+        // if cart is null redirect to Cart
+
         $user = $this->getUser();
 
         $commande = new Commande();
@@ -58,9 +66,18 @@ class CommandeController extends Controller
                 'ECommerceBundle:Cart:Facture.html.twig',
                 array(
                     'articles' => $articles,
-                    'total_cmd'=>$request->get('totalpanier')
-                )
-            ),
+                    'total_cmd'=>$request->get('totalpanier'),
+                    'request'=>$request,
+                    'id_commande'=>$commande->getId(),
+
+                    'checkout_country'=>$request->get('checkout_country'),
+                    'checkout_address'=>$request->get('checkout_address'),
+                    'checkout_address_2'=>$request->get('checkout_address_2'),
+                    'checkout_zipcode'=>$request->get('checkout_zipcode'),
+                    'checkout_phone'=>$request->get('phone'),
+                    'checkout_email'=>$request->get('email'),
+
+            )),
             'FacturePdf/'.$commande->getId().'_'.$user->getId().'.pdf',
 
             array(
@@ -76,6 +93,15 @@ class CommandeController extends Controller
             $rm->remove($key);
         }
         $rm->flush();
+
+        //send facture by email ;
+        $message = (new \Swift_Message('Bonjour '.$user->getUsername().' !'))
+            ->setFrom('VeloEcommerceSite@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody('Voice votre facture :')
+            ->attach(\Swift_Attachment::fromPath('FacturePdf/'.$commande->getId().'_'.$user->getId().'.pdf'));
+        ;
+        $this->get('mailer')->send($message);
 
         //return new \Symfony\Component\HttpFoundation\Response('DONE !');
         return $this->redirectToRoute('fos_user_profile_commande');

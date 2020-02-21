@@ -9,6 +9,7 @@
 namespace ECommerceBundle\Controller;
 
 
+use ECommerceBundle\Entity\Cart;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -120,25 +121,37 @@ class ProductController extends Controller
     }
 
     public function List_Product_FrontAction($category)
-    {
+    {   //cartn
+        $cartn = $this->getDoctrine()->getRepository(Cart::class)->Cart_user_id($this->getUser()->getId());
+
         if ($category == 'Velo' || $category == 'Piece de rechange' || $category == 'Accessoire' ) {
             $products = $this->getDoctrine()->getRepository(Product::class)->findByCategory($category);
             $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
 
-            return $this->render('@ECommerce/Default/Front_list_products.html.twig', array('category' => $category, 'Products' => $products, 'Images' => $images));
+            return $this->render('@ECommerce/Default/Front_list_products.html.twig',
+                array('category' => $category, 'Products' => $products, 'Images' => $images,'cartn'=>$cartn));
+        }
+        else if ($category == 'All')
+        {   $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+            $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
+
+            return $this->render('@ECommerce/Default/Front_list_products.html.twig',
+                array('category' => $category, 'Products' => $products, 'Images' => $images,'cartn'=>$cartn));
         }
         else
             return $this->redirectToRoute('homepage'); // all products
     }
 
     public function Single_Product_FrontAction($refrence,Request $request)
-    {
+    {   //cartn
+        $cartn = $this->getDoctrine()->getRepository(Cart::class)->Cart_user_id($this->getUser()->getId());
         //$oldroute=$request->attributes->get('_route');
         //die();
         $products = $this->getDoctrine()->getRepository(Product::class)->findByRefrence($refrence);
         if ($products!=null){
             $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
-            return $this->render('@ECommerce/Default/Single_list_products.html.twig',array('Product'=>$products,'Images'=>$images));
+            return $this->render('@ECommerce/Default/Single_list_products.html.twig',
+                array('Product'=>$products,'Images'=>$images,'cartn'=>$cartn));
         }
 
             return $this->redirectToRoute('homepage'); // previous page

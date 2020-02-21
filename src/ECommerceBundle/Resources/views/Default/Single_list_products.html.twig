@@ -1,5 +1,5 @@
 {% extends "front/autre/autreautre.html.twig" %}
-
+{% block cartn %}{{ cartn|length }}{% endblock %}
 {% block titre %}Produit {% endblock %}
 
 {% block css %}
@@ -10,6 +10,16 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('autre/styles/product_responsive.css') }}">
 
 	<script src="{{ asset('jquery.js') }}"></script> {# SCRIPTTTTTTTTTTTT #}
+{% endblock %}
+
+{% block searsh %}
+	<div class="header_search">
+		<form action="{{ path('Searsh_Product_Front') }}" id="header_search_form">
+			<input type="text" name="input_searsh" class="search_input" placeholder="Recherche..." required="required">
+			<button class="header_search_button"><img src="{{ asset('autre/images/search.png') }}" alt=""></button>
+			<input type="hidden" name="categorys" value="All">
+		</form>
+	</div>
 {% endblock %}
 
 {% block body %}

@@ -1,5 +1,5 @@
 {% extends "front/autre/autreautre.html.twig" %}
-
+{% block cartn %} {{ cart|length }}  {% endblock %}
 {% block titre %} Panier  {% endblock %}
 
 {% block css %}
@@ -18,6 +18,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("back/fahd/AfficherProduitCss.css") }}">
 
     <script src="{{ asset('jquery.js') }}"></script> {# SCRIPTTTTTTTTTTTT #}
+{% endblock %}
+
+{% block searsh %}
+    <div class="header_search">
+        <form action="{{ path('Searsh_Product_Front') }}" id="header_search_form">
+            <input type="text" name="input_searsh" class="search_input" placeholder="Recherche..." required="required">
+            <button class="header_search_button"><img src="{{ asset('autre/images/search.png') }}" alt=""></button>
+            <input type="hidden" name="categorys" value="All">
+        </form>
+    </div>
 {% endblock %}
 
 {% block body %}
@@ -65,7 +75,7 @@
                         </div>
                         {% for c in cart  %}
 
-    <form action="{{ path('return_to_products') }}" method="POST" id="CSF">
+    <form action="{{ path('Checkout') }}" method="POST" id="CSF">
         <!-- Cart Items -->
         <div class="cart_items">
             <ul class="cart_items_list">
@@ -122,7 +132,6 @@
                         <input type="hidden" name="FRE" value="<?PHP echo $here['reference'];?>">
 
                     </div>
-                    <?php //$total=$key['Quantite']*$here['prix'];?>
 
                     <div class="product_total product_text"><span></span><input type="text" class="indivi_articl" id="total_{{ c.product.refrence }}" value="{{ c.quantity * c.product.price }}" style="width: 115px;border: none" readonly> DT</div>
         <a  href="{{ path('delete_article',{'id_article':c.id}) }}" title="" class="btn tooltip-link product-edit">
@@ -138,10 +147,9 @@
 
         {% endif %}
 
-        <?php $totals=$totals + ($key['Quantite']*$here['prix']);?>
 
         <!-- toufa houni -->
-        <?php } } ?>
+
 
         <!-- Cart Buttons -->
         <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
@@ -153,9 +161,9 @@
                     {% endif %}
                 </div>
                 {% if  vider_panier == false %}
-                    <div class="button button_continue trans_200"><a id="e" href="{{ path('homepage') }}">Continuer le Shopping</a></div> {#href="{{ path('return_to_products') }}"#}
-                {% else %}
-                        <div class="button button_continue trans_200"><a id="Ahref" href="{{ path('homepage') }}">Continuer le Shopping</a></div> {#href="{{ path('return_to_products') }}"#}
+                    <div class="button button_continue trans_200"><a id="e" href="{{ path("List_Product_Front",{'category':'All'}) }}">Continuer le Shopping</a></div> {#href="{{ path('return_to_products') }}"#}
+                {% else %}                                                          {#prevented default theses goes to => checkout#}
+                        <div class="button button_continue trans_200"><a id="Ahref" href="{{ path("List_Product_Front",{'category':'All'}) }}">Continuer le Shopping</a></div> {#href="{{ path('return_to_products') }}"#}
                 {% endif %}
 
                 <script>
@@ -199,15 +207,15 @@
                                 <div class="cart_extra_total_value ml-auto"><input type="text" name="Total_Panier" id="Total_Panier" value="{{ somme }}" style="text-align: right;width: 115px;border: none;background:transparent;" readonly> DT</div>
                             </li>
                             <li class="d-flex flex-row align-items-center justify-content-start">
-                                <div class="cart_extra_total_title">Vos Points de fidelites</div>
-                                <div class="cart_extra_total_value ml-auto"><?php echo $pf;?></div>
+                                <div class="cart_extra_total_title">Frais de livraison</div>
+                                <div class="cart_extra_total_value ml-auto">Gratuit</div>
                             </li>
 
-                            <li class="d-flex flex-row align-items-center justify-content-start">
+                            {#<li class="d-flex flex-row align-items-center justify-content-start">
                                 <input type="checkbox" id="check_pf" name="payment_radio" class="payment_radio" value="Paiement en Especes" onchange="Func_pf(this.id)">
                                 <!-- <span class="radio_mark"></span>-->
                                 <span class="cart_extra_total_title" >&nbsp;&nbsp;Utiliser mes points </span>
-                            </li>
+                            </li>#}
 
                             <!--<label class="radio_container">
                                 <input type="checkbox" id="radio" name="payment_radio" class="payment_radio" value="Paiement en Especes" >
@@ -244,12 +252,7 @@
     </div>
 <script>
     $(document).ready(function() {
-
-
-
-
     });
-
         function myfunc55(thisid,thisvalue,thisprice) {
        // alert(thisid+'   '+thisvalue);
         //$('#total_'+thisid).val();
@@ -268,130 +271,7 @@
     }
     </script>
     <script>
-        var test=1;
-        var test2 =0;
-        function Func_pf(s1) {
-            var checkbox = document.getElementById(s1);
-            //alert(document.getElementById('Total_Panier').value);
 
-
-            if (document.getElementById('Total_Panier').value != 0) {
-                var total_panier = document.getElementById('Total_Panierez');
-                total_TTC = total_panier.value;
-
-                var Remise = 0;
-                R =<?php echo $pf;?>;
-                Remise_value = R / 1000;
-                if (checkbox.checked == true && test2==1)
-                {
-                    checkbox.checked = false;
-                }
-                if (checkbox.checked == true) {
-                    test2=1;
-                    tTTC =document.getElementById('Total_Panierez').value;
-                    //alert(tTTC);
-                    Remise = total_TTC - Remise_value;
-                    if (Remise>=0)
-                    {document.getElementById('Total_Panierez').value = Remise;}
-                    else {
-                        document.getElementById('Total_Panierez').value =0;
-                        test=1;
-                    }
-                    document.getElementById('test_check').value = '1';
-                } else {
-                    test2=0;
-                    //alert(test+'  '+document.getElementById('Total_Panier').value);
-                    //alert(total_TTC+'   '+Remise_value);
-                    Remise = parseFloat(+total_TTC + +Remise_value);
-                    if(test==0){
-                        document.getElementById('Total_Panierez').value = Remise;}
-                    else if (test==1)
-                    {
-                        document.getElementById('Total_Panierez').value = document.getElementById('Total_Panier').value;}
-                    document.getElementById('test_check').value = '0';
-                }
-            }
-        }
-    </script>
-    <script>
-
-
-        function myfunc5(a,b,c,d,old_q)
-        {var vare = document.getElementById('Total_Panier').value ;
-            if (b==0 || b =='')
-            {
-                b=1;
-                document.getElementsByName('QUANTITEES').value=1;
-            }
-            var x = (b*d) - parseFloat(document.getElementById(c).value);
-            var tote =parseFloat(document.getElementById('Total_Panier').value) + x  ;
-            document.getElementById('Total_Panier').value = tote.toFixed(3);
-
-            var checkbox = document.getElementById('check_pf');
-            var R=<?php echo $pf;?>;
-            var RR = R / 1000;
-            if(checkbox.checked == true)
-            {//alert('1');
-                document.getElementById('Total_Panierez').value = tote.toFixed(3) - RR;
-                //**test5=0;
-                // alert(document.getElementById('Total_Panierez').value);
-                if(document.getElementById('Total_Panierez').value<0)
-                {  //alert('d5alllllllll');
-                    // vare = document.getElementById('Total_Paniere').value;
-                    //**  test5=1;
-                    // alert(document.getElementById('Total_Panierez').value);
-                    document.getElementById('Total_Panierez').value=0;
-                    // alert(document.getElementById('Total_Panierez').value);
-
-                }
-            }
-            else {
-                document.getElementById('Total_Panierez').value = tote.toFixed(3);//}
-            }
-            var tot=parseFloat(d*b);
-            document.getElementById(c).value=tot.toFixed(3);
-            // alert(c);
-            //var Quantite = document.getElementById('QQ').value ;
-            //var id = document.getElementById('').value ;
-            $.ajax({
-
-                url: "Quantite_Refresh.php",
-                method: "POST",
-                //data: 'nome='+fah,
-                data: {
-                    nomee: a,
-                    nome: b
-                },
-                success: function (data) {
-                    // alert("2");
-                    $('#WTF').html(data);
-                }
-            })
-        }
-        $(document).ready(function() {
-
-            $(document).on('click', '.Q', function () {
-                var fahh = '1';
-                var fah = 7;
-                //alert("1");
-                //var Quantite = document.getElementById('QQ').value ;
-                //var id = document.getElementById('').value ;
-                $.ajax({
-                    cache:false,
-                    url: "Quantite_Refresh.php",
-                    method: "POST",
-                    //data: 'nome='+fah,
-                    data: {
-                        nomee: fahh,
-                        nome: fah
-                    },
-                    success: function (data) {
-                        //alert("2");
-                        //$('#WTF').html(data);
-                    }
-                })
-            });
-        });
     </script>
 {% endblock %}
 

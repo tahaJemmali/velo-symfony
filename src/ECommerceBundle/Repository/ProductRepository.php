@@ -45,5 +45,34 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return  $result;
     }
 
+    public function findByCategoryAndInput($category,$input)
+    {   $input='%'.$input.'%';
+        //$sql="SELECT * from produit where id_projet='$ID' and ( nom LIKE '$sh' OR categorie LIKE '$sh' )";
+        $em = $query = $this->getEntityManager();
+        $RAW_SQL = "SELECT id,refrence,name,category,price,stock,description from product where category='$category' and  name LIKE '$input' ";
+        //$RAW_SQL = "SELECT i.id,image,ordrer,product from Image i inner join Product p ON i.product=p.id where p.refrence=:ref ";
+        $statement = $em->getConnection()->prepare($RAW_SQL);
+        //$statement->bindValue('ref',$refrence);
+        $statement->execute();
+        $result = $statement->fetchAll();
+         // var_dump($result);die();
+        return  $result;
+    }
+
+    public function findOnlyWithInput($input)
+    {
+        $input='%'.$input.'%';
+        //$sql="SELECT * from produit where id_projet='$ID' and ( nom LIKE '$sh' OR categorie LIKE '$sh' )";
+        $em = $query = $this->getEntityManager();
+        $RAW_SQL = "SELECT id,refrence,name,category,price,stock,description from product where ( name LIKE '$input' OR category LIKE '$input')";
+        //$RAW_SQL = "SELECT i.id,image,ordrer,product from Image i inner join Product p ON i.product=p.id where p.refrence=:ref ";
+        $statement = $em->getConnection()->prepare($RAW_SQL);
+        //$statement->bindValue('ref',$refrence);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        // var_dump($result);die();
+        return  $result;
+    }
+
 }
 

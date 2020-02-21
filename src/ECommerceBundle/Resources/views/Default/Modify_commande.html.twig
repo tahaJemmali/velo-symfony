@@ -90,7 +90,158 @@
 
 
     <script src="{{ asset('jquery.js') }}"></script>
+    <style>
+        .ErrFah{
+            font-size: 15px ;
+            color: red;
+        }
+    </style>
+    <script>
+        //$('#Ssubmit').click(function () {
+        function errors(){
+            var i=0;
+            var error = false ;
+            var checke ='';
 
+            jQuery.each($('.CHECK'), function() {
+                i++;
+                checke = $(this).val();
+                //alert(checke+i);
+                if( checke !== "true"){
+                    // alert('buton');
+                    error = true ;
+                    // var button = $('#Ssubmit');
+                    //button.prop('type','button');
+                    next = false;
+                    $('#wew').val('false');
+                }
+            });
+            if (!error)
+            {
+                //alert('submit');
+                //var button = $('#Ssubmit');
+                next = true;
+                $('#wew').val('true');
+                //button.prop('type', 'submit');
+            }
+            //alert(next);
+
+        }
+        //});
+        function RefVerif(s1,s2,s3) {
+
+            var regex = /^[a-zA-Z0-9]*$/;
+            var data=document.getElementById(s1) ;
+            var datar = data.value.substring(0,1);
+            var datanr =data.value.substring(1,data.value.length);
+
+            if ( !regex.test(data.value) || data.value.length<3) {
+                data.style.border = "1px solid #FF0000";
+                document.getElementById(s2).innerHTML="*Referance invalide";
+                document.getElementById(s3).value="false";
+            }
+            else {data.style.border = "";
+                document.getElementById(s2).innerHTML="";
+                document.getElementById(s3).value="true";
+            }
+            //alert();
+            //document.getElementById("Re").value = document.getElementById('Reftext').value;
+
+            errors();
+
+        }
+        function CheckInfoLettre(s1,s2,s3)
+        {   var data=document.getElementById(s1) ;
+            var regex = /^[a-zA-Z ]{3,30}$/;
+            if(!regex.test(data.value) || data.value== "")
+            {
+                data.style.border = "1px solid #FF0000";
+                document.getElementById(s2).innerHTML="*Nom invalide";
+                document.getElementById(s3).value="false";
+                errors();
+                return false;
+            }
+            else
+            {
+                data.style.border = "";
+                document.getElementById(s2).innerHTML="";
+                document.getElementById(s3).value="true";
+                errors();
+                return true;
+            }
+
+        }
+
+        function CheckInfoLettrec(s1,s2,s3)
+        {   var data=document.getElementById(s1) ;
+            var regex = /^[a-zA-Z ]{3,30}$/;
+            if(!regex.test(data.value) || data.value== "")
+            {
+                data.style.border = "1px solid #FF0000";
+                document.getElementById(s2).innerHTML="*Categorie invalide";
+                document.getElementById(s3).value="false";
+                errors();
+                return false;
+            }
+            else
+            {
+                data.style.border = "";
+                document.getElementById(s2).innerHTML="";
+                document.getElementById(s3).value="true";
+                errors();
+                return true;
+            }
+
+        }
+
+        function FloatVerif(s1,s2,s3) {
+
+            var data = document.getElementById(s1);
+            var datanr =data.value.substring(0,1);
+
+            //alert(datanr);
+            //data.value="0";
+            var regex = /^-?\d*(\.\d+)?$/;
+            // var datan = data.value.substring(data.value.indexOf("."),data.value.length) ;
+
+            if (!regex.test(data.value) || data.value == "" || datanr == "-" || datanr == 0) {
+                data.style.border = "1px solid #FF0000";
+                document.getElementById(s2).innerHTML = "*Prix invalide";
+                document.getElementById(s3).value="false";
+                errors();
+                return false;
+            } else {
+                data.style.border = "";
+                document.getElementById(s2).innerHTML = "";
+                document.getElementById(s3).value="true";
+                errors();
+                return true;
+            }
+
+
+        }
+        function VerifQuantite(s1,s2,s3) {
+            var data=document.getElementById(s1);
+            var regex =/^[1-9][0-9]?$|^100$/ ;
+
+            if (!regex.test(data.value) || data.value == "" ) {
+                data.style.border = "1px solid #FF0000";
+                document.getElementById(s2).innerHTML = "*Verifier la quantité";
+                document.getElementById(s3).value="false";
+                errors();
+
+                return false;
+            } else {
+                data.style.border = "";
+                document.getElementById(s2).innerHTML = "";
+                document.getElementById(s3).value="true";
+                errors();
+
+                return true;
+            }
+
+        }
+    </script>
 
     {% endblock %}
 

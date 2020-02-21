@@ -1,0 +1,12 @@
+<script src="{{ asset('autre/js/jquery-3.2.1.min.js') }}"></script>
+<script>
+
+    $('#map_canvas').google.maps.event.addListener(map, "click", function(event) {
+        var lat = event.latLng.lat();
+        var lng = event.latLng.lng();
+        alert("Lat=" + lat + "; Lng=" + lng);
+    });
+
+</script>
+{{ ivory_google_map(map, {'attr':{'class':'map'}}) }}
+{{ ivory_google_api([map]) }}

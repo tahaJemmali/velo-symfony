@@ -1,0 +1,73 @@
+{% extends "back/index.html.twig" %}
+{% block titre %} Demandes de service{% endblock %}
+
+
+
+{% block body %}
+
+        <div align="center" style=";margin-bottom:25%;margin-top:15%;margin-left:25%;margin-right:25%; ">
+            <div style="overflow: scroll; height: 150%;">
+                <div class=""  style="height: 180px;" align="left">
+                    <div style="height: 180%;">
+                    {% for message in messages %}
+                            {% if message.senderRole == "ROLE_USER" %}
+                                <h5 style="color: #6495ed;">{{ demande.client.username }}:</h5>
+                                <div style="border-style: inset;padding: 3px; color: #6495ed; border:#6495ed">{{ message.text }}</div><br>
+                            {% else %}
+                                <h6 style="color: #4CAF50">Admin:</h6>
+                                <div style="border-style: inset;padding: 3px; color: #4CAF50; border:#6495ed">{{ message.text }}</div><br>
+                            {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="" style="padding: 3px;">
+                {{ form_start(formMessage, {'action': path('messengerAdmin', { 'idDemande': demande.id })}, {'attr':{'class':'form-container'}}) }}
+                {{ form_widget(formMessage.text, {'attr':{'placeholder':'Ecrire un message...'}})}}
+                {{ form_widget(formMessage.envoyer)}}
+                {{ form_end(formMessage) }}
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+    <script>
+
+        function openForm() {
+            if(document.getElementById("myForm").style.display == "block"){
+                document.getElementById("myForm").style.display = "none";
+            }else{
+                document.getElementById("myForm").style.display = "block";
+            }
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+
+
+
+
+    <script>
+
+        function openForm() {
+            if(document.getElementById("myForm").style.display == "block"){
+                document.getElementById("myForm").style.display = "none";
+            }else{
+                document.getElementById("myForm").style.display = "block";
+            }
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+{% endblock %}

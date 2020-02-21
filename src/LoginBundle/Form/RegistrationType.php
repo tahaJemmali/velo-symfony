@@ -23,6 +23,8 @@ class RegistrationType extends AbstractType
             ->add('address',TextareaType::class)->add('phone');
     }
 
+
+
     public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\RegistrationFormType';

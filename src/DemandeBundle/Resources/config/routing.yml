@@ -1,0 +1,59 @@
+demande_homepage:
+    path:     /
+    defaults: { _controller: DemandeBundle:Default:index }
+
+add:
+    path:     /add
+    defaults: { _controller: DemandeBundle:Demande:addDemande }
+
+display:
+    path:     /display
+    defaults: { _controller: DemandeBundle:Demande:displayDemande }
+
+displayAdmin:
+    path:     /displayAdmin
+    defaults: { _controller: DemandeBundle:Demande:displayDemandeAdmin }
+
+imageDemande:
+    path:     /imageDemande/{id}
+    defaults: { _controller: DemandeBundle:Demande:imageDemande }
+
+imageDemandeAdmin:
+    path:     /imageDemandeAdmin/{id}
+    defaults: { _controller: DemandeBundle:Demande:imageDemandeAdmin }
+
+remove:
+    path:     /remove/{id}
+    defaults: { _controller: DemandeBundle:Demande:remove }
+
+confirmer:
+    path:     /confirmer/{id}
+    defaults: { _controller: DemandeBundle:Demande:confirmer}
+
+displayOrdre:
+    path:     /displayOrdre
+    defaults: { _controller: DemandeBundle:Ordre:display}
+
+removeOrdre:
+    path:     /removeOrdre/{id}
+    defaults: { _controller: DemandeBundle:Ordre:remove }
+
+envoyerMessage:
+    path:     /envoyerMessage/{idClient}/{senderRole}
+    defaults: { _controller: DemandeBundle:Demande:envoyerMessage }
+
+messengerAdmin:
+    path:     /messengerAdmin/{idDemande}
+    defaults: { _controller: DemandeBundle:Demande:messengerAdmin }
+
+messengerClient:
+    path:     /messengerClient/{idDemande}
+    defaults: { _controller: DemandeBundle:Demande:messengerClient }
+
+exporterCSV:
+    path:     /exporterCSV
+    defaults: { _controller: DemandeBundle:Demande:exporterCSV }
+
+renderMap:
+    path:     /renderMap/{adresse}
+    defaults: { _controller: DemandeBundle:Demande:renderMap }

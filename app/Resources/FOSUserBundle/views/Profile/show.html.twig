@@ -1,0 +1,125 @@
+{% extends "front/autre/autreautre.html.twig" %}
+
+{% block titre %}Espace Client {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('autre/styles/bootstrap-4.1.2/bootstrap.min.css') }}">
+    <link href="{{ asset('autre/plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('autre/plugins/flexslider/flexslider.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('autre/styles/product.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('autre/styles/product_responsive.css') }}">
+
+    <link href="{{ asset('back/fahd/ProfilClient.css') }}" rel="stylesheet" id="bootstrap-css">
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('front/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- CSS Custom -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('front/css/style.css') }}">
+    <link href="{{ asset('front/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('front/css/animate.min.css') }}">
+    <link href="{{ asset('front/css/gallery.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('back/fahd/popLiv.css') }}" />
+    {#
+        <!--== font-awesome ==-->
+
+        <!--== magnific-popup ==-->
+        <link href="{{ asset('front/assets/css/magnific-popup.css') }}" rel="stylesheet">
+
+        <!--== owl carousel ==-->
+        <link href="{{ asset('front/assets/css/owl.carousel.css') }}" rel="stylesheet">
+
+        <!--== animate css ==-->
+        <link href="{{ asset('front/assets/css/animate.min.css') }}" rel="stylesheet">
+
+        <!--== style css ==-->
+        <link href="{{ asset('front/assets/css/style.css') }}" rel="stylesheet">
+
+        <!--== responsive css ==-->
+        <link href="{{ asset('front/assets/css/responsive.css') }}" rel="stylesheet">
+
+        <!--== theme color css ==-->
+        <link href="{{ asset('front/assets/css/theme-color.css') }}" rel="stylesheet">
+
+        <script src="{{ asset('front/assets/js/jquery-2.1.4.min.js') }}"></script>
+    #}
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    {#<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>#}
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+
+    <script src="{{ asset('jquery.js') }}"></script> {# SCRIPTTTTTTTTTTTT #}
+{% endblock %}
+
+{% block body %}
+    <section id="home" class="contact_bg">
+        <div class="container">
+            <h2 style="color:#fec139"> Votre Espace :</h2>
+
+            <div class="container">
+                <div class="row profile">
+                    <div class="col-md-3">
+                        <div class="profile-sidebar">
+                            <div class="profile-userpic">
+                                <img src="{{ asset(user.photo) }}" alt="{{ user.username }}" class="img-responsive" style="width: 60%" >
+                            </div>
+
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name">
+                                    {{ user.username }}
+                                </div>
+
+                            </div>
+
+                            <div class="profile-usermenu">
+                                <ul class="nav">
+                                    <li >
+                                        <a href="{{ path('trophets') }}">
+                                            <i class="fas fa-info-circle"></i>
+                                            Mes Trophets&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; </a>
+                                    </li>
+                                    {% if not is_granted("ROLE_ADMIN") %}
+                                        <li > {# class="active"#}
+                                            <a href="{{ path('fos_user_profile_commande') }}">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                Mes Commandes&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; </a>
+                                        </li>
+                                    {% endif %}
+                                    <li class="active">
+                                        <a  href="{{  path('profile')  }}">
+                                            <i class="fas fa-exclamation"></i>
+                                            Mes Evenements&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{  path('informations')  }}">
+                                            <i class="fas fa-reply"></i>
+                                            Mes Informations&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&thinsp; </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            Déconnexion&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END MENU -->
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-content">
+
+                                {% include "@Event/evenement/participer.html.twig" %}
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+
+    </section>
+
+{% endblock %}
+

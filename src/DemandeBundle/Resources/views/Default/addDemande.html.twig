@@ -1,0 +1,20 @@
+{% extends "front/autre/autreautre.html.twig" %}
+{% block titre %}Demande d'un service de réparation{% endblock %}
+{% block body %}
+
+
+    <div class="login" style="margin-right: 25%;margin-left: 25%;margin-top: 3%;margin-bottom: 3%;" >
+        <h3 align="center">Informations</h3>
+        <div class="form_login">
+            <div>
+                {{ form_start(form) }}
+                {{form_label(form.description)}}: {{ form_widget(form.description) }}<br>
+                {{ form_widget(form.image) }}<br>
+                <div align="center">{{ form_widget(form.ajouter) }}<br></div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

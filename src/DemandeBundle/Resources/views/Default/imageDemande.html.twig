@@ -1,0 +1,10 @@
+{% extends "front/autre/autreautre.html.twig" %}
+{% block titre %}Image déscriptive{% endblock %}
+
+{% block body %}
+    <div align="center">
+        {% for demande in demandes %}
+        <img src="{{  asset(demande.image) }}">
+        {% endfor %}
+    </div>
+{% endblock %}

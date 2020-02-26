@@ -1,0 +1,26 @@
+forum:
+    resource: "@ForumBundle/Resources/config/routing.yml"
+    prefix:   /
+
+login:
+    resource: "@LoginBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+demande:
+    resource: "@DemandeBundle/Resources/config/routing.yml"
+    prefix:   /demande
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+event:
+    resource: "@EventBundle/Resources/config/routing.yml"
+    prefix:   /
+e_commerce:
+    resource: "@ECommerceBundle/Resources/config/routing.yml"
+    prefix:   /

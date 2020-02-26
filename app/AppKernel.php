@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle,
             new DemandeBundle\DemandeBundle(),
             new TestBundle\TestBundle(),
+            new MontageBundle\MontageBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -5,7 +5,9 @@ forum:
 login:
     resource: "@LoginBundle/Resources/config/routing.yml"
     prefix:   /
-
+montage:
+    resource: "@MontageBundle/Resources/config/routing.yml"
+    prefix:   /montage
 
 demande:
     resource: "@DemandeBundle/Resources/config/routing.yml"

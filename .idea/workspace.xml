@@ -52,6 +52,9 @@
       <command text="s debug:router " />
     </commandsHistory>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/fig/link-util" />
@@ -125,6 +128,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1XZda4kt3GuFjZe4kEOS9R2ga94" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../ProjetSpark-V0/web/CoolAdmin-master/register.html" />
@@ -140,12 +144,12 @@
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.zend.framework.tool" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\velo\app\Resources" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\velo\src\LoginBundle\Form" />
       <recent name="C:\wamp64\www\velo\app\Resources\FOSUserBundle\views" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\velo\app\Resources" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -166,20 +170,28 @@
       <command value="s debug:router" />
       <command value="s doctrine:schema:update --force" />
       <command value="c require egyg33k/csv-bundle" />
-      <command value="s server:run" />
       <command value="c require egeloen/google-map" />
       <command value="c require egeloen/serializer-bundle" />
-      <command value="c require php-http/guzzle6-adapter" />
       <command value="c require egeloen/google-map-bundle" />
       <command value="c require php-http/httplug-bundle" />
       <command value="c update" />
       <command value="c require willdurand/geocoder" />
       <command value="c require willdurand/geocoder-bundle" />
-      <command value="c dump-autoload" />
       <command value="c require geocoder-php/yandex-provider-bundle" />
       <command value="c require geocoder-php/yandex-provider" />
       <command value="c require geocoder-php/common-http-bundle" />
       <command value="c require geocoder-php/common-http" />
+      <command value="c require php-http/guzzle6-adapter" />
+      <command value="c require php-http/message" />
+      <command value="c dump-autoload" />
+      <command value="c require geocoder-php/google-maps-provider php-http/guzzle6-adapter" />
+      <command value="composer require geocoder-php/google-maps-provider" />
+      <command value="c require geocoder-php/google-maps-provider" />
+      <command value="c require geocoder-php/google-maps-provider-bundle" />
+      <command value="c require C:\wamp64\www\velo\src\DemandeBundle\Controller\DemandeController.php" />
+      <command value="c require geocoder-php/BazingaGeocoderBundle" />
+      <command value="c require geocoder-php/BazingaGeocoder-bundle" />
+      <command value="s server:run" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -236,11 +248,37 @@
       <workItem from="1582157260533" duration="1843000" />
       <workItem from="1582159720066" duration="859000" />
       <workItem from="1582307082511" duration="4124000" />
-      <workItem from="1582313045606" duration="7108000" />
+      <workItem from="1582313045606" duration="8301000" />
+      <workItem from="1582576896778" duration="9007000" />
+      <workItem from="1582639253924" duration="5657000" />
+      <workItem from="1582663698331" duration="1439000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/DemandeBundle/Resources/views/Default/renderMap.html.twig</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

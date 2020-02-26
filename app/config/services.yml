@@ -49,5 +49,5 @@ ivory_google_map:
     geocoder:
         client: httplug.client.default
         message_factory: httplug.message_factory.default
-        api_key: 8f0536b3-b02e-4606-b92b-6423394ce4a5
+        api_key: AIzaSyA-F4w3LW441-_czP0uzY_YEDktp7-7hnU
 

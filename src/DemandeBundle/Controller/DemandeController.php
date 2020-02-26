@@ -1,8 +1,12 @@
 <?php
 
 namespace DemandeBundle\Controller;
-
-
+use Ivory\GoogleMap\Event\Event;
+use Ivory\GoogleMap\Control\ControlPosition;
+use Ivory\GoogleMap\Control\CustomControl;
+use Ivory\GoogleMap\Service\Geocoder\GeocoderService;
+use Http\Adapter\Guzzle6\Client;
+use Http\Message\MessageFactory\GuzzleMessageFactory;
 use Ivory\GoogleMap\Base\Coordinate;
 use Ivory\GoogleMap\Overlay\Animation;
 use Ivory\GoogleMap\Overlay\Icon;
@@ -273,7 +277,7 @@ class DemandeController extends Controller
         die();
     }
 
-    public function renderMapAction(){
+    public function renderMapAction($adresse){
 
         $marker = new Marker(
             new Coordinate(),
@@ -284,16 +288,23 @@ class DemandeController extends Controller
             ['clickable' => false]
         );
 
-        /*$curl     = new \Ivory\HttpAdapter\CurlHttpAdapter();
-        $geocoder = new \Geocoder\Provider\GoogleMaps($curl);
+        $curl     = new \Ivory\HttpAdapter\CurlHttpAdapter();
+        $geocoder = new \Geocoder\Provider\GoogleMaps($curl, "fr", "Tunisia",true, 'AIzaSyA-F4w3LW441-_czP0uzY_YEDktp7-7hnU');
+        $request = $geocoder->geocode($adresse);
+        $marker->setPosition(new Coordinate($request->first()->getLatitude(), $request->first()->getLongitude()));
 
-        $geocoder->geocode("tunisia, ariana, soukra");
-        //$geocoder->reverse(...);*/
 
-        $marker->setPosition(new Coordinate(33.7932, 9.5608));
+
         $map = new Map();
+        $map->addStylesheetOptions(array('width'=>'100%'));
         $map->getOverlayManager()->addMarker($marker);
-        //var_dump($geocoder);
+        $event = new Event(
+            $marker->getVariable(),
+            'click',
+            'function(){alert("Marker clicked!");}',
+            true
+        );
+        $map->getEventManager()->addDomEventOnce($event);
         return $this->render('@Demande/Default/renderMap.html.twig', array('map'=>$map));
     }
 

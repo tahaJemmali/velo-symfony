@@ -55,5 +55,5 @@ exporterCSV:
     defaults: { _controller: DemandeBundle:Demande:exporterCSV }
 
 renderMap:
-    path:     /renderMap
+    path:     /renderMap/{adresse}
     defaults: { _controller: DemandeBundle:Demande:renderMap }

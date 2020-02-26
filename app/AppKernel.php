@@ -31,6 +31,8 @@ class AppKernel extends Kernel
             new DemandeBundle\DemandeBundle(),
             new TestBundle\TestBundle(),
             new MontageBundle\MontageBundle(),
+            new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
+            new LocationBundle\LocationBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

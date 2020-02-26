@@ -1,6 +1,10 @@
 forum:
     resource: "@ForumBundle/Resources/config/routing.yml"
     prefix:   /
+location:
+    resource: "@LocationBundle/Resources/config/routing.yml"
+    prefix:   /location
+
 
 login:
     resource: "@LoginBundle/Resources/config/routing.yml"

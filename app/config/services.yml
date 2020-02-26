@@ -3,7 +3,13 @@
 parameters:
     #parameter_name: value
 
+
+
 services:
+    location_bundle.service.listener:
+        class: LocationBundle\Listener\LoadDataListener
+        tags:
+            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }
     app.form.registration:
         class: LoginBundle\Form\RegistrationType
         tags:

@@ -1,0 +1,300 @@
+{% extends "front/autre/autre.html.twig" %}
+{% block titre %} Velo Personalisé{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css%22%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css%22%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css%22%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css%22%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css%22%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css%22%3E">
+<link rel="stylesheet" href="{{ asset("back/assets/css/cs-skin-elastic.css") }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
+<div id="a">
+
+    <form method="post" id="form">
+        <div id="choisirCorp">
+        </div>
+        <div id="choisirPedale">
+        </div>
+        <div id="choisirRoue">
+        </div>
+
+    </form>
+
+
+    <div style="" align="center">
+
+        {% set varCorp = 0 %}
+        {% for corp in corps %}
+            <img src="{{ asset(corp.photo) }}" id="{{ corp.id }}" class="corpImage" style="display: none;">
+            {% set varCorp = varCorp + 1 %}
+        {% endfor %}
+
+        {% set varRoue = 0 %}
+        {% for roue in roues %}
+            <img src="{{ asset(roue.photo) }}" id="{{ roue.id }}" class="roueImage" style="display: none;height: 280px;position:absolute;left:840px;top: 325px;border-radius: 100%;">
+            <img src="{{ asset(roue.photo) }}" id="{{ roue.nom }}" class="roueImage" style="display: none;height: 280px;position:absolute;left:310px;top: 325px;border-radius:100%; ">
+            {% set varRoue = varRoue + 1 %}
+        {% endfor %}
+
+        {% set varPedale = 0 %}
+        {% for pedale in pedales %}
+            <img src="{{ asset(pedale.photo) }}" id="{{ pedale.id }}" class="pedaleImage" style="display: none;height: 290px;position:absolute;left:510px;top: -40px;mix-blend-mode: multiply; ">
+            {% set varPedale = varPedale + 1 %}
+        {% endfor %}
+
+        <form method="POST">
+        <div align="center" id="click" style="margin-top: 12%;">
+        </div>
+        </form>
+
+
+        </div>
+        <div style="margin-right: 5%;margin-top: 10%;" class="table-stats order-table ov-h" id="divCorp" >
+
+            <h4 class="card-header">Liste des corps</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>NOM</th>
+                    <th>DESCRIPTION</th>
+                    <th>PHOTO</th>
+                    <th>PRIX</th>
+                    <th>Choisir</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for corp in corps %}
+                    <tr>
+                        <td>{{ corp.nom }}</td>
+                        <td>{{ corp.description }}</td>
+                        <td>  <img src="{{ asset(corp.photo) }}" height="80" width="70" /> {{ corp.nom }} </td>
+                        <td>  {{ corp.prix }} TND</td>
+                        <td> <input type="radio" class="{{ corp.id }}"></td>
+
+                    </tr>
+
+                    <script type="text/javascript">
+
+                        $( ".{{ corp.id }}" ).click(function() {
+                            $("#divCorp").append('<input type="hidden" value="{{ corp.id }}"id="selectedCorp">');
+                            document.getElementById("listeRoues").style.display="block";
+                            var i;
+                            var j = {{ varCorp }};
+                           for(i=0; i<j; i++){
+                               document.getElementsByClassName("corpImage")[i].style.display = "none";
+                           }
+                            document.getElementById("{{ corp.id }}").style.display="block";
+
+                            //new corp
+
+                            $("#choisirCorp").html('<input type="text" id="corpnom" name="corpnom" value="{{corp.nom}}" readonly="readonly" style="display: none;" > <input type="text" id="corpdesc" name="corpdesc" value="{{corp.description}}" readonly="readonly" style="display: none;"> <input type="text" id="corpprix" name="corpprix" value="{{corp.prix}}" readonly="readonly" style="display: none;"> ');
+                            $('#choisirCorp').append('<input type="text" id="corpid" name="corpid" value="{{corp.id}}" readonly="readonly" style = " display:none " >');
+
+                            var corpnom = document.getElementById("corpnom").value;
+                            var corpdesc = document.getElementById("corpdesc").value ;
+
+
+
+
+
+
+
+                        });
+
+
+                    </script>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div id="listeRoues" style="margin-right: 5%;margin-top: 10%;display: none;" class="table-stats order-table ov-h">
+            <h4 class="card-header"> Liste des roues</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>NOM</th>
+                    <th>DESCRIPTION</th>
+                    <th>PHOTO</th>
+                    <th>PRIX</th>
+                    <th>CHOISIR</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                {% for roue in roues %}
+                    <tr>
+                        <td>{{ roue.nom }}</td>
+                        <td>{{ roue.description }}</td>
+                        <td>  <img src="{{ asset(roue.photo) }}" height="70" width="70" /> {{ roue.nom }} </td>
+                        <td> {{ roue.prix }} TND </td>
+                        <td> <input type="radio" class="{{ roue.id }}"></td>
+                    </tr>
+                    <script type="text/javascript">
+
+                        $( ".{{ roue.id }}" ).click(function() {
+                            document.getElementById("listePedales").style.display="block";
+
+                            var i;
+                            var j = {{ varRoue }};
+                            for(i=0; i<j; i++){
+                                document.getElementsByClassName("roueImage")[i].style.display = "none";
+                            }
+
+                            document.getElementById("{{ roue.id }}").style.display="block";
+                            document.getElementById("{{ roue.nom }}").style.display="block";
+
+                            // new roue
+
+                            $("#choisirRoue").html('<input type="text" id="rouenom" name="rouenom" value="{{roue.nom}}" readonly="readonly" style="display: none;"> <input type="text" id="rouedesc" name="rouedesc" value="{{roue.description}}" readonly="readonly" style="display: none;"> <input type="text" id="roueprix" name="roueprix" value="{{roue.prix}}" readonly="readonly" style="display: none">');
+
+                            $('#choisirCorp').append('<input type="text" id="roueid" name="roueid" value="{{roue.id}}" readonly="readonly" style=" display:none " >');
+
+                            var rouenom = document.getElementById("rouenom").value;
+                            var rouedesc = document.getElementById("rouedesc").value ;
+
+
+
+
+
+                        });
+
+
+                    </script>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+        <div id="listePedales"style="margin-top: 10%;display: none;" class="table-stats order-table ov-h">
+            <table class="table">
+                <thead>
+                <tr><h4 class="card-header"> Liste des pedales</h4></tr>
+                <tr>
+                    <th>NOM</th>
+                    <th>DESCRIPTION</th>
+                    <th>PHOTO</th>
+                    <th>PRIX</th>
+                    <th>CHOISIR</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for pedale in pedales %}
+                    <tr>
+                        <td>{{ pedale.nom }}</td>
+                        <td>{{ pedale.description }}</td>
+                        <td>  <img src="{{ asset(pedale.photo) }}" height="70" width="70" /> {{ pedale.nom }} </td>
+                        <td>  {{ pedale.prix }} TND </td>
+                        <td> <input type="radio" id="" class="{{ pedale.id }}"></td>
+                    </tr>
+
+                    <script type="text/javascript">
+
+                        $( ".{{ pedale.id }}" ).click(function() {
+
+                            var i;
+                            var j = {{ varPedale }};
+                            for(i=0; i<j; i++){
+                                document.getElementsByClassName("pedaleImage")[i].style.display = "none";
+                            }
+
+
+
+                            document.getElementById("{{ pedale.id }}").style.display="block";
+
+                            // new pedale
+
+                            $("#choisirPedale").html('<input type="text" id="pedalenom" name="pedalenom" value="{{pedale.nom}}" readonly="readonly" style="display: none"> <input type="text" id="pedaledesc" name="pedaledesc" value="{{pedale.description}}" readonly="readonly" style="display: none"> <input type="text" id="pedaleprix" name="pedaleprix" value="{{pedale.prix}}" readonly="readonly" style="display: none">');
+
+                            $('#choisirCorp').append('<input type="text" id="pedaleid" name="pedaleid" value="{{pedale.id}}" readonly="readonly" style=" display:none"  >');
+
+                            var pedalenom = document.getElementById("pedalenom").value;
+                            var pedaledesc = document.getElementById("pedaledesc").value ;
+
+
+                            $("#click").html( '<input type="submit" id="click" name="clickButton" class="button" value="creer votre velo">' );
+
+                        });
+
+                    </script>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+            <script>
+                $("#click").click(function (e) {
+
+                    //alert('success to click !!');
+
+                    var corpnom = document.getElementById("corpnom").value;
+                    var corpdesc = document.getElementById("corpdesc").value;
+                    var pedalepnom = document.getElementById("pedalenom").value;
+                    var pedaledesc = document.getElementById("pedaledesc").value;
+                    var rouenom = document.getElementById("rouenom").value;
+                    var rouedesc = document.getElementById("rouedesc").value ;
+                    var corpid = document.getElementById("corpid").value ;
+                    var pedaleid = document.getElementById("pedaleid").value ;
+                    var roueid = document.getElementById("roueid").value ;
+
+
+                    var corpprix = document.getElementById("corpprix").value ;
+                    var roueprix = document.getElementById("roueprix").value ;
+                    var pedaleprix = document.getElementById("pedaleprix").value ;
+
+                e.preventDefault();
+                $.ajax({
+                    cache:false,
+                    data : {'corpnom':corpnom,'corpdesc':corpdesc,'corpid':corpid,'corpprix':corpprix,'pedalenom':pedalepnom,'pedaledesc':pedaledesc,'pedaleid':pedaleid,'pedaleprix':pedaleprix,'rouenom':rouenom,'rouedesc':rouedesc,'roueid':roueid ,'roueprix' :roueprix},
+                    url: '{{ path('ajax') }}',
+                    method: "POST",
+                    success: function(data) {
+                       $('#a').html(data);
+
+                    }
+                });
+                });
+            </script>
+        </div>
+
+
+
+
+
+
+
+</div>
+    <style>
+    .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    }
+    </style>
+
+    </div>
+
+{% endblock %}

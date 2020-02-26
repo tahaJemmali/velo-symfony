@@ -1,0 +1,39 @@
+montage_homepage:
+    path:     /
+    defaults: { _controller: MontageBundle:Default:index }
+
+addPiece:
+    path:     /add
+    defaults: { _controller: MontageBundle:PieceDeRechange:add }
+
+editPiece:
+    path:     /edit/{id}
+    defaults: { _controller: MontageBundle:PieceDeRechange:edit }
+
+removePiece:
+    path:     /remove/{id}
+    defaults: { _controller: MontageBundle:PieceDeRechange:remove }
+
+read:
+    path:     /read
+    defaults: { _controller: MontageBundle:PieceDeRechange:read }
+
+veloPerso:
+    path:     /veloPerso
+    defaults: { _controller: MontageBundle:PieceDeRechange:veloPerso }
+
+selectCorp:
+    path: /selectCorp
+    defaults: { _controller: MontageBundle:PieceDeRechange:selectCorp }
+
+selectRoue:
+    path: /selectRoue
+    defaults: { _controller: MontageBundle:PieceDeRechange:selectRoue }
+
+ajax:
+    path: /ajax
+    defaults: { _controller: MontageBundle:PieceDeRechange:ajax }
+
+confirmerVelo:
+    path: /confirmerVelo/{corp}/{roue}/{pedale}/{prix}
+    defaults: { _controller: MontageBundle:PieceDeRechange:confirmerVelo }

@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -20,17 +20,19 @@ class DefaultController extends Controller
         return $this->render('@ECommerce/Default/empty.html.twig');
     }
 
-    public function testmailAction() //no
+    public function testAction()
     {
         $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('VeloEcommerceSite@gmail.com')
+            ->setFrom('velo.tn.contact@gmail.com')
             ->setTo('fahd.larayedh@gmail.com')
-            ->setBody('You should see me from the profiler!')
+            ->setBody('boudy')
         ;
-
         $this->get('mailer')->send($message);
-
         return $this->render('@ECommerce/Default/empty.html.twig');
+    }
+    public function renderPdfAction ($cmd)
+    {
+        return new BinaryFileResponse('FacturePdf/'.$cmd.'_'.$this->getUser()->getId().'.pdf');
     }
 
     public function pdfAction() //test

@@ -78,30 +78,30 @@
                                     <li >
                                         <a href="{{ path('trophets') }}">
                                             <i class="fas fa-info-circle"></i>
-                                            Mes Trophets&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; </a>
+                                            Mes Trophets&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&thinsp;</a>
                                     </li>
                                     {% if not is_granted("ROLE_ADMIN") %}
                                         <li class="active" > {# class="active"#}
                                             <a href="{{ path('fos_user_profile_commande') }}">
                                                 <i class="fas fa-shopping-cart"></i>
-                                                Mes Commandes&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; </a>
+                                                Mes Commandes&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</a>
                                         </li>
                                     {% endif %}
                                     <li >
                                         <a  href="{{  path('profile')  }}">
                                             <i class="fas fa-exclamation"></i>
-                                            Mes Evenements&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</a>
+                                            Mes Evenements&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&thinsp;&thinsp;</a>
                                     </li>
 
                                     <li>
                                         <a href="{{  path('informations')  }}">
                                             <i class="fas fa-reply"></i>
-                                            Mes Informations&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&thinsp; </a>
+                                            Mes Informations&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</a>
                                     </li>
                                     <li>
                                         <a href="{{ path('fos_user_security_logout') }}">
                                             <i class="fas fa-sign-out-alt"></i>
-                                            Déconnexion&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; </a>
+                                            Déconnexion&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</a>
                                     </li>
                                 </ul>
                             </div>
@@ -252,7 +252,10 @@
                                        {# <td>231.473 Dt</td>#}
                                         <td>{{ cmd.date | date('Y-m-d') }}</td>
 
-                                        <td><a class="btn btn-primary" target="_blank" href="{{ asset('FacturePdf/'~cmd.id~'_'~user.id~'.pdf') }}">Votre Facture</a></td>
+                                        {#<td><a class="btn btn-primary" target="_blank"  href="{{ asset('FacturePdf/'~cmd.id~'_'~user.id~'.pdf') }}">Votre Facture</a></td>#}
+                                       <td> <a class="btn btn-primary" target="_blank"  href="{{ path('renderPdf', {'cmd': cmd.id }) }}">Votre Facture</a></td>
+
+                                        {#<input value="{{ asset('FacturePdf/'~cmd.id~'_'~user.id~'.pdf') }}">#}
                                         {#<td><button class="btn btn-warning" id="myBtnAhmed1">
                                                 Consulter Livraison</button></td>#}
                                     </tr>

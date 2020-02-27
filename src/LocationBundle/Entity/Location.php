@@ -53,15 +53,12 @@ class Location
 
     /**
      * @var \DateTime
-     * @Assert\DateTime()
      * @ORM\Column(name="date_debut", type="date")
      */
     private $dateDebut ;
 
     /**
      * @var \DateTime
-     * @Assert\DateTime()
-     *  @Assert\GreaterThan(propertyPath="startDate")
      * @ORM\Column(name="date_fin", type="date")
      */
     private $dateFin;

@@ -13,8 +13,8 @@ remove_image:
 
 
 test:
-    path:     /admin/test
-    defaults: { _controller: ECommerceBundle:Product:test }
+    path:     /test
+    defaults: { _controller: ECommerceBundle:Default:test }
 
 
 List_Product:
@@ -109,6 +109,11 @@ Searsh_Product_Front:
 Notification_back_stock:
     path:     /Notification_back_stock
     defaults: { _controller: ECommerceBundle:Default:Notification_back_stock }
+
+renderPdf:
+    path:     /renderPdf/{cmd}
+    defaults: { _controller: ECommerceBundle:Default:renderPdf }
+
 
 
 

@@ -1,4 +1,4 @@
-{% extends "front/autre/autre.html.twig" %}
+{% extends "front/autre/autreautre.html.twig" %}
 {% block titre %} Velo Personalisé{% endblock %}
 
 {% block body %}
@@ -38,14 +38,14 @@
 
         {% set varRoue = 0 %}
         {% for roue in roues %}
-            <img src="{{ asset(roue.photo) }}" id="{{ roue.id }}" class="roueImage" style="display: none;height: 280px;position:absolute;left:840px;top: 325px;border-radius: 100%;">
-            <img src="{{ asset(roue.photo) }}" id="{{ roue.nom }}" class="roueImage" style="display: none;height: 280px;position:absolute;left:310px;top: 325px;border-radius:100%; ">
+            <img src="{{ asset(roue.photo) }}" id="{{ roue.id }}" class="roueImage" style="display: none;height: 280px;position:absolute;left:1040px;top: 325px;border-radius: 100%;">
+            <img src="{{ asset(roue.photo) }}" id="{{ roue.nom }}" class="roueImage" style="display: none;height: 280px;position:absolute;left:510px;top: 325px;border-radius:100%; ">
             {% set varRoue = varRoue + 1 %}
         {% endfor %}
 
         {% set varPedale = 0 %}
         {% for pedale in pedales %}
-            <img src="{{ asset(pedale.photo) }}" id="{{ pedale.id }}" class="pedaleImage" style="display: none;height: 290px;position:absolute;left:510px;top: -40px;mix-blend-mode: multiply; ">
+            <img src="{{ asset(pedale.photo) }}" id="{{ pedale.id }}" class="pedaleImage" style="display: none;height: 290px;position:absolute;left:710px;top: -40px;mix-blend-mode: multiply; ">
             {% set varPedale = varPedale + 1 %}
         {% endfor %}
 

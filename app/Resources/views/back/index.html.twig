@@ -69,44 +69,46 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa  fa-smile-o"></i>Locations</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-eye"></i><a href="#">Consulter</a></li>
-                        <li><i class="menu-icon fa fa-plus-circle"></i><a href="#">Ajouter</a></li>
+                        <li><i class="menu-icon fa fa-eye"></i><a href="{{ path('displayLocation') }}">Consulter location</a></li>
+                        <li><i class="menu-icon fa fa-plus-circle"></i><a href="{{ path('addVelo') }}">Ajouter velo </a></li>
+                        <li><i class="menu-icon fa fa-eye"></i><a href="{{ path('displayVelo') }}">Consulter velo</a></li>
+
 
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa  fa-thumbs-o-up"></i>Montage</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-eye"></i><a href="#">Consulter</a></li>
-                        <li><i class="menu-icon fa fa-plus-circle"></i><a href="#">Ajouter</a></li>
+                        <li><i class="menu-icon fa fa-eye"></i><a href="{{ path('read') }}">Consulter</a></li>
+                        <li><i class="menu-icon fa fa-plus-circle"></i><a href="{{ path('addPiece') }}">Ajouter</a></li>
 
                     </ul>
                 </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa  fa-credit-card"></i>Réclamations</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-eye"></i><a href="#">Consulter</a></li>
-                        <li><i class="menu-icon fa fa-plus-circle"></i><a href="#">Ajouter</a></li>
+                {#<li class="menu-item-has-children dropdown">#}
+                    {#<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa  fa-credit-card"></i>Réclamations</a>#}
+                    {#<ul class="sub-menu children dropdown-menu">#}
+                        {#<li><i class="menu-icon fa fa-eye"></i><a href="#">Consulter</a></li>#}
+                        {#<li><i class="menu-icon fa fa-plus-circle"></i><a href="#">Ajouter</a></li>#}
 
-                    </ul>
+                    {#</ul>#}
 
-                </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa  fa-credit-card"></i>Forum</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-eye"></i><a href="#">Activité</a></li>
-                        <li><i class="menu-icon fa fa-plus-circle"></i><a href="#">Reports</a></li>
+                {#</li>#}
+                {#<li class="menu-item-has-children dropdown">#}
+                    {#<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa  fa-credit-card"></i>Forum</a>#}
+                    {#<ul class="sub-menu children dropdown-menu">#}
+                        {#<li><i class="menu-icon fa fa-eye"></i><a href="#">Activité</a></li>#}
+                        {#<li><i class="menu-icon fa fa-plus-circle"></i><a href="#">Reports</a></li>#}
 
-                    </ul>
+                    {#</ul>#}
 
-                </li>
+                {#</li>#}
 
                 <li class="menu-title">Paramètres</li><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-gear "></i>Configuration</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-gears"></i><a href="#">Profil</a></li>
-                        <li><i class="menu-icon fa fa-sign-out"></i><a href="#">Déconnection</a></li>
+                        <li><i class="menu-icon fa fa-gears"></i><a href="{{ path("fos_user_profile_show") }}">Profil</a></li>
+                        <li><i class="menu-icon fa fa-sign-out"></i><a href="{{  path('fos_user_security_logout') }}">Déconnection</a></li>
                     </ul>
                 </li>
             </ul>

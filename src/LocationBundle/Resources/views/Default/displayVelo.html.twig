@@ -1,4 +1,4 @@
-{% extends "front/autre/autre.html.twig" %}
+{% extends "front/autre/autreautre.html.twig" %}
 {% block titre %} Liste des vélos a louer{% endblock %}
 
 {% block body %}
@@ -54,9 +54,12 @@
                             <td scope="col" class="text-center" style="width: 9%; vertical-align: middle;">
                                 <div align="center" style="vertical-align: center;">
                                     <ul >
+                                        {% if role == "ROLE_ADMIN"  %}
                                         <li><a style="margin-top: 15%; padding-bottom: 1%;" href="{{ path('removeVelo', {'id':velo.id}) }}">Supprimer</a></li>
                                         <li><a style="margin-top: 15%; padding-bottom: 1%;" href="{{ path('updateVelo', {'id':velo.id}) }}">Modifier</a></li>
+                                        {% else %}
                                         <li><a style="margin-top: 15%; padding-bottom: 1%;" href="{{ path('addLocation', {'id':velo.id}) }}">Louer</a></li>
+                                            {% endif %}
                                     </ul>
                                 </div>
                             </td>

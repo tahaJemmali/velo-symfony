@@ -29,7 +29,7 @@ class QrController extends Controller
         $fileName = 'qr.html';
         $QR=$savePath.$fileName;
         file_put_contents($QR, $barcode);
-        $API = new Convertio("febd0d9fd2495c01c7da565a297baff2");
+        $API = new Convertio("4953224f004fd36232b3b672720e62d3");
         $API->settings(array('api_protocol' => 'http', 'http_timeout' => 10));
         $API->start($QR, 'jpg')->wait()->download($savePath.'qr.jpg')->delete();
         $filesystem = new Filesystem();
@@ -45,7 +45,9 @@ class QrController extends Controller
 
         $event=$this->getDoctrine()->getRepository('EventBundle:Evenement')->find($id);
         $users = $this->getDoctrine()->getRepository('LoginBundle:User')->inviter($id);
-        if (!empty($users))
+        //dump($users);
+        //die();
+        if ($users!=null)
        {
             foreach ($users as $key  ){
                 $key = $this->getDoctrine()->getRepository('LoginBundle:User')->find($key['id']);
@@ -54,47 +56,50 @@ $msg="C'est Mr/Mme ".$key->getUsername()." et de mail ".$key->getEmail()." d'id 
 
 
           $QR=$this->QR($msg);//25 par jour seulement Convertio
-        $path = $QR;
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = base64_encode($data);
+//        $path = $QR;
+//        $type = pathinfo($path, PATHINFO_EXTENSION);
+//        $data = file_get_contents($path);
+//        $base64 = base64_encode($data);
 
-
-        $post = [
-            'key' => '72a396b6aa35271c91e4e7514b33d4f7',
-            'image' => $base64,
-            'name'   => 'qr',
-        ];
-$curl=curl_init('https://api.imgbb.com/1/upload');
-curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
-        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
-$data=curl_exec($curl);
-
-if (!$data)
-{
-    dump(curl_error($curl));
-}
-else
-{
-    $data= json_decode($data,true);
-    $image=$data['data']['display_url'];
-}
-curl_close($curl);
+//
+//        $post = [
+//            'key' => '72a396b6aa35271c91e4e7514b33d4f7',
+//            'image' => $base64,
+//            'name'   => 'qr',
+//        ];
+//$curl=curl_init('https://api.imgbb.com/1/upload');
+//curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
+//        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+//        curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+//$data=curl_exec($curl);
+//
+//if (!$data)
+//{
+//    dump(curl_error($curl));
+//
+//else
+//{
+//    $data= json_decode($data,true);
+//    $image=$data['data']['display_url'];
+//}
+//curl_close($curl);
 
 
                 $message = (new \Swift_Message('Participation Mail'))
           ->setFrom('velo.tn.contact@gmail.com')
             ->setTo($key->getEmail())
-           ->setBody(
-               $this->renderView('@Event/mail/qr.html.twig',compact("image","name","event")),
-                'text/html'
-            );
+                    ->setBody(
+                        $this->render('@Event/mail/qr.html.twig',compact("name","event")),
+                        'text/html'
+                    )
+                    ->attach(\Swift_Attachment::fromPath($QR))
+                ;
+
+
 
  $this->get('mailer')->send($message);
-        $filesystem = new Filesystem();
-        $filesystem->remove($QR);
-
+//        $filesystem = new Filesystem();
+//        $filesystem->remove($QR);
             }
         }
  return $this->redirectToRoute("list_evenement_back");

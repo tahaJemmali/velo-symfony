@@ -2,6 +2,7 @@
 
 namespace LocationBundle\Controller;
 
+use ECommerceBundle\Entity\Cart;
 use LocationBundle\Entity\Location;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,8 +50,12 @@ class VeloController extends Controller
         return $this->render('@Location/Default/addVelo.html.twig', array('form'=>$form->createView()));
     }
     public function displayVeloAction(){
+        $cartn='';
+        if ($this->getUser())
+            $cartn = $this->getDoctrine()->getRepository(Cart::class)->Cart_user_id($this->getUser()->getId());
+        $role = $this->getUser()->getRoles()[0];
         $velos = $this->getDoctrine()->getRepository(Velo::class)->findAll();
-        return $this->render('@Location/Default/displayVelo.html.twig', array('velos'=>$velos));
+        return $this->render('@Location/Default/displayVelo.html.twig', array('velos'=>$velos,'cart'=>$cartn,'role'=> $role));
     }
 
     public function ListforClientAction(){

@@ -15,6 +15,10 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         $em = $this->getDoctrine()->getManager();
         $evenements = $em->getRepository('EventBundle:Evenement')->findAll();
+
+        //$roles = $this->getUser()->getRoles();
+        //$role = $roles[0] ;
+
         return $this->render('front/index.html.twig', compact("evenements"));
     }
     /**

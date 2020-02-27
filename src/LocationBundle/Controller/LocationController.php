@@ -1,6 +1,7 @@
 <?php
 
 namespace LocationBundle\Controller;
+use ECommerceBundle\Entity\Cart;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use LocationBundle\Entity\Location;
@@ -13,6 +14,10 @@ use LocationBundle\Form\LocationType;
 class LocationController extends Controller
 {
     public function addLocationAction(Request $request, $id){
+        $cartn='';
+        if ($this->getUser())
+            $cartn = $this->getDoctrine()->getRepository(Cart::class)->Cart_user_id($this->getUser()->getId());
+
         $velo = $this->getDoctrine()->getRepository(Velo::class)->find($id);
         $prixVelo = $velo->getPrix();
 
@@ -37,10 +42,10 @@ class LocationController extends Controller
             $en->persist($velo);
             $en->flush();
 
-            return $this->redirectToRoute('displayfacture');
+            return $this->redirectToRoute('displayVelo');
 
         }
-        return $this->render('@Location/Default/addLocation.html.twig', array('form'=>$form->createView()));
+        return $this->render('@Location/Default/addLocation.html.twig', array('form'=>$form->createView(),'cart'=>$cartn));
 
 
     }

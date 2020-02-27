@@ -22,7 +22,7 @@ class UserRepository extends EntityRepository
     }
     public function inviter($id_event)
     {
-        $rawSql = "SELECT * FROM user JOIN participation ON participation.user_id != user.id and participation.event_id=".$id_event;
+        $rawSql = "SELECT * FROM user JOIN participation ON participation.user_id = user.id and participation.event_id=".$id_event;
         $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
         $stmt->execute([]);
         return $stmt->fetchAll();

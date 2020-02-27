@@ -45,7 +45,6 @@ class PieceDeRechange
      * @var integer
      *
      * @ORM\Column(name="prix", type="integer")
-     * @Assert\NotBlank
      */
 
     private $prix;

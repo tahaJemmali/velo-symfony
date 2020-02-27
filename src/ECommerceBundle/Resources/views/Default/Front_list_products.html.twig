@@ -1,5 +1,5 @@
 {% extends "front/autre/autreautre.html.twig" %}
-{% block cartn %}{% if cartn %}{{ cartn|length }}{% else %}*{% endif %}{% endblock %}
+{% block cartn %}{% if cartn %}{{ cartn|length }}{% else %}0{% endif %}{% endblock %}
 {% block titre %}{{ category }} / Produits{% endblock %}
 
 {% block searsh %}

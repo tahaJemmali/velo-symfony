@@ -3,6 +3,7 @@
 namespace MontageBundle\Controller;
 
 
+use ECommerceBundle\Entity\Cart;
 use MontageBundle\Entity\PieceDeRechange;
 use MontageBundle\Entity\VeloPerso;
 use MontageBundle\Form\PieceDeRechangeType;
@@ -17,8 +18,12 @@ class PieceDeRechangeController extends Controller
 {
 
     public function readAction(){
+        $cartn='';
+        if ($this->getUser())
+            $cartn = $this->getDoctrine()->getRepository(Cart::class)->Cart_user_id($this->getUser()->getId());
+
         $pieces = $this->getDoctrine()->getRepository(PieceDeRechange::class)->findAll();
-        return $this->render('@Montage/Default/read.html.twig', array('pieces' => $pieces));
+        return $this->render('@Montage/Default/read.html.twig', array('pieces' => $pieces,'cart'=>$cartn));
 
     }
 
@@ -42,6 +47,7 @@ class PieceDeRechangeController extends Controller
             $filename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('piece'), $filename);
             $piece->setPhoto($filename);
+            $piece->setPrix(50);
             $em->persist($piece);
             $em->flush();
             return $this->redirectToRoute('read');
@@ -90,6 +96,10 @@ class PieceDeRechangeController extends Controller
     }
 
     public function veloPersoAction(){
+        $cartn='';
+        if ($this->getUser())
+            $cartn = $this->getDoctrine()->getRepository(Cart::class)->Cart_user_id($this->getUser()->getId());
+
         $roues = $this->getDoctrine()->getRepository(PieceDeRechange::class)->findByCategorie('roue');
         $pedales = $this->getDoctrine()->getRepository(PieceDeRechange::class)->findByCategorie('pedal');
         $corps = $this->getDoctrine()->getRepository(PieceDeRechange::class)->findByCategorie('corp');
@@ -98,7 +108,7 @@ class PieceDeRechangeController extends Controller
         foreach ($corps as $row){
             $nbC++;
         }
-      return $this->render('@Montage/Default/veloPerso.html.twig', array('roues'=>$roues, 'pedales'=>$pedales, 'corps'=>$corps, 'nbC'=>$nbC));
+      return $this->render('@Montage/Default/veloPerso.html.twig', array('roues'=>$roues, 'pedales'=>$pedales, 'corps'=>$corps, 'nbC'=>$nbC,'cart'=>$cartn));
       //  return $this->render('@Montage/Default/veloPerso1.html.twig', array('roues'=>$roues, 'pedales'=>$pedales, 'corps'=>$corps, 'nbC'=>$nbC));
     }
 
